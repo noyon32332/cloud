@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #16A34A;
+  --color-primary-light: #22C55E;
+  --color-primary-dark: #15803D;
+  --color-accent: #10B981;
+  --color-accent-light: #DCFCE7;
+  --color-secondary: #07130D;
+  --color-secondary-light: #0B1F14;
+  --color-surface: #F0FDF4;
+  --color-surface-dark: #07130D;
+  --color-card: #FFFFFF;
+  --color-card-dark: #0D2117;
+  --color-border: #BBF7D0;
+  --color-border-dark: #1F4D32;
+  --color-muted: #6F8F7A;
+  --color-muted-dark: #A7C7B2;
+  --color-text-primary: #14532D;
+  --color-text-secondary: #6F8F7A;
+  --color-text-dark-primary: #F0FDF4;
+  --color-text-dark-secondary: #A7C7B2;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+.dark body {
+  color-scheme: dark;
+}
+
+html, body, #root {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+html {
+  scroll-padding-top: 5rem;
+}
+
+/* Sidebar scrollbar */
+.sidebar-nav::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sidebar-nav::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb {
+  background: #16A34A;
+  border-radius: 999px;
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb:hover {
+  background: #22C55E;
+}
+
+/* Firefox */
+.sidebar-nav {
+  scrollbar-width: thin;
+  scrollbar-color: #16A34A transparent;
+}
