@@ -28,12 +28,10 @@ interface SidebarProps {
 
 const navItems = [
   { label: 'Dashboard', icon: LayoutDashboard, path: '/dashboard' },
-  { label: 'My Courses', icon: BookOpen, path: '/workspaces' },
   { label: 'Assignments', icon: FileText, path: '/workspaces' },
   { label: 'My Files', icon: FolderOpen, path: '/files' },
   { label: 'Messages', icon: MessageSquare, path: '/chat' },
   { label: 'Attendance', icon: Bell, path: '/dashboard' },
-  { label: 'Results', icon: ClipboardList, path: '/dashboard' },
   { label: 'Calendar', icon: CalendarDays, path: '/calendar' },
   { label: 'Profile', icon: User, path: '/profile' },
   { label: 'Settings', icon: Settings, path: '/settings' },

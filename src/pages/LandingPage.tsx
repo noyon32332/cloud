@@ -1,13 +1,11 @@
 import Navbar from '@/components/Navbar'
 import HeroBanner from '@/components/HeroBanner'
-import StatisticsSection from '@/components/StatisticsSection'
 import FeaturesSection from '@/components/FeaturesSection'
 import HowItWorksSection from '@/components/HowItWorksSection'
-import WhySection from '@/components/WhySection'
+
 import ScreenshotSection from '@/components/ScreenshotSection'
 import TestimonialsSection from '@/components/TestimonialsSection'
 import FAQSection from '@/components/FAQSection'
-import CTASection from '@/components/CTASection'
 import Footer from '@/components/Footer'
 
 export default function LandingPage() {
@@ -17,36 +15,24 @@ export default function LandingPage() {
 
       <HeroBanner />
 
-      <section className="py-12 sm:py-16 lg:py-28 bg-slate-50/50 dark:bg-slate-900/50">
-        <StatisticsSection />
-      </section>
-
-      <section className="py-12 sm:py-16 lg:py-28 bg-slate-50/50 dark:bg-slate-900/50">
+      <section className="py-12 sm:py-16 lg:py-28 bg-[#65B3DC]">
         <FeaturesSection />
       </section>
 
-      <section className="py-12 sm:py-16 lg:py-28 bg-slate-50/50 dark:bg-slate-900/50">
+      <section className="py-12 sm:py-16 lg:py-28 bg-[#65B3DC] dark:bg-[#65B3DC]">
         <HowItWorksSection />
       </section>
 
-      <section className="py-12 sm:py-16 lg:py-28 bg-slate-50/50 dark:bg-slate-900/50">
-        <WhySection />
-      </section>
-
-      <section className="py-12 sm:py-16 lg:py-28 bg-slate-50/50 dark:bg-slate-900/50">
+      <section className="py-12 sm:py-16 lg:py-28 bg-[#65B3DC] dark:bg-[#65B3DC]">
         <ScreenshotSection />
       </section>
 
-      <section className="py-12 sm:py-16 lg:py-28 bg-slate-50/50 dark:bg-slate-900/50">
+      <section className="py-12 sm:py-16 lg:py-28 bg-[#65B3DC] dark:bg-[#65B3DC]">
         <TestimonialsSection />
       </section>
 
-      <section className="py-12 sm:py-16 lg:py-28 bg-slate-50/50 dark:bg-slate-900/50">
+      <section className="py-12 sm:py-16 lg:py-28 bg-[#65B3DC] dark:bg-[#65B3DC]">
         <FAQSection />
-      </section>
-
-      <section className="py-12 sm:py-16 lg:py-28 bg-slate-50/50 dark:bg-slate-900/50">
-        <CTASection />
       </section>
 
       <Footer />

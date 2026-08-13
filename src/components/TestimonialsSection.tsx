@@ -34,7 +34,7 @@ export default function TestimonialsSection() {
   const inView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section className="py-12 sm:py-16 lg:py-28 bg-white dark:bg-slate-900">
+    <section className="py-12 sm:py-16 lg:py-28 bg-[#65B3DC] dark:bg-[#65B3DC]">
       <div ref={ref} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
           {testimonials.map((t, i) => (

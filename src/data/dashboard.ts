@@ -37,16 +37,6 @@ export interface StatCardData {
 
 export const statCards: StatCardData[] = [
   {
-    id: 'courses',
-    label: 'Courses',
-    value: 6,
-    icon: BookOpen,
-    gradient: 'from-green-500 to-emerald-600',
-    glow: 'shadow-green-500/40',
-    trend: { value: '+2', direction: 'up', note: 'vs last semester' },
-    path: '/workspaces',
-  },
-  {
     id: 'assignments',
     label: 'Assignments',
     value: 12,
@@ -119,7 +109,6 @@ export const quickActions: QuickActionData[] = [
   { id: 'join', label: 'Join Class', icon: UserPlus, gradient: 'from-green-500 to-emerald-500', path: '/workspaces' },
   { id: 'assignments', label: 'View Assignments', icon: ListChecks, gradient: 'from-emerald-500 to-teal-500', path: '/workspaces' },
   { id: 'upload', label: 'Upload Homework', icon: UploadCloud, gradient: 'from-green-600 to-emerald-600', path: '/files' },
-  { id: 'results', label: 'Check Results', icon: Trophy, gradient: 'from-teal-500 to-green-500' },
   { id: 'messages', label: 'Messages', icon: MessageSquare, gradient: 'from-emerald-600 to-teal-600', path: '/chat' },
   { id: 'calendar', label: 'Calendar', icon: CalendarDays, gradient: 'from-green-500 to-teal-500' },
   { id: 'files', label: 'My Files', icon: FolderOpen, gradient: 'from-teal-500 to-emerald-500', path: '/files' },

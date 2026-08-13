@@ -18,7 +18,7 @@ export default function CloudTechnologySection() {
   const inView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section className="py-12 sm:py-16 lg:py-28 bg-slate-50/50 dark:bg-slate-900/50">
+    <section className="py-12 sm:py-16 lg:py-28 bg-[#65B3DC] dark:bg-[#65B3DC]">
       <div ref={ref} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}

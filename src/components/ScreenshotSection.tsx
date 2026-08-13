@@ -136,7 +136,7 @@ export default function ScreenshotSection() {
   const inView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section className="py-12 sm:py-16 lg:py-28 bg-slate-50/50 dark:bg-slate-900/50 overflow-hidden">
+    <section className="py-12 sm:py-16 lg:py-28 bg-[#65B3DC] dark:bg-[#65B3DC] overflow-hidden">
       <div ref={ref} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -182,43 +182,7 @@ export default function ScreenshotSection() {
           ))}
         </motion.div>
 
-        {/* Laptop Mockup */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.3 }}
-          className="relative max-w-4xl mx-auto"
-        >
-          <div className="relative overflow-hidden">
-            {/* Screen */}
-            <div className={`relative rounded-t-xl sm:rounded-t-2xl overflow-hidden bg-gradient-to-br ${tabs[activeTab].gradient} ${tabs[activeTab].border} border border-b-0 p-4 sm:p-6 lg:p-8`}>
-              {/* Browser Bar */}
-              <div className="flex items-center gap-2 mb-4 sm:mb-6">
-                <div className="flex gap-1.5">
-                  <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-red-400" />
-                  <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-yellow-400" />
-                  <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-emerald-400" />
-                </div>
-                <div className="flex-1 flex justify-center">
-                  <div className="px-3 sm:px-6 py-1 rounded-lg bg-white/60 dark:bg-slate-700/60 text-[10px] sm:text-xs text-slate-400 truncate max-w-[200px] sm:max-w-none">
-                    app.studysphere.cloud/${tabs[activeTab].id}
-                  </div>
-                </div>
-              </div>
-
-              {/* Content */}
-              {tabs[activeTab].render()}
-            </div>
-
-            {/* Laptop Base */}
-            <div className="h-3 sm:h-4 bg-gradient-to-b from-slate-300 to-slate-400 dark:from-slate-600 dark:to-slate-700 rounded-b-xl" />
-            <div className="h-2.5 sm:h-3 mx-auto w-[50%] sm:w-[60%] bg-gradient-to-b from-slate-400 to-slate-500 dark:from-slate-500 dark:to-slate-600 rounded-b-lg" />
-          </div>
-
-          {/* Glow */}
-          <div className="absolute -inset-6 sm:-inset-8 bg-gradient-to-r from-sky-500/10 to-teal-500/10 rounded-3xl blur-3xl -z-10" />
-        </motion.div>
-      </div>
+</div>
     </section>
   )
 }
