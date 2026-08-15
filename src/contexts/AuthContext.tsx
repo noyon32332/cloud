@@ -30,6 +30,7 @@ interface AuthContextType {
   verifyEmail: (code: string) => Promise<void>
   logout: () => Promise<void>
   updateUser: (user: User) => void
+  toggleRole: () => void
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -135,6 +136,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(updatedUser)
   }, [])
 
+  const toggleRole = useCallback(() => {
+    setUser((prev) => {
+      if (!prev) return null
+      const nextRole = prev.role === 'teacher' ? 'student' : 'teacher'
+      const updated = { ...prev, role: nextRole as 'student' | 'teacher' }
+      storeProfile(updated)
+      return updated
+    })
+  }, [])
+
   return (
     <AuthContext.Provider
       value={{
@@ -149,6 +160,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         verifyEmail,
         logout,
         updateUser,
+        toggleRole,
       }}
     >
       {children}

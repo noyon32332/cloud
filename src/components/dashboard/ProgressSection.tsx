@@ -22,7 +22,7 @@ export default function ProgressSection() {
                 <span className="text-sm font-bold tabular-nums text-slate-900 dark:text-white">{item.value}%</span>
               </div>
             </div>
-            <div className="relative h-2.5 overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800">
+            <div className="relative h-2.5 overflow-hidden rounded-full bg-white border border-slate-200/70">
               <motion.div
                 initial={{ width: 0 }}
                 whileInView={{ width: `${item.value}%` }}

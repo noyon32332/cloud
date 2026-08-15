@@ -20,8 +20,8 @@ const faqs = [
     a: 'Yes, teamwork is at the core of StudySphere. You can create study groups, shared workspaces, collaborate on documents in real-time, manage tasks together, and communicate through built-in chat and video features.',
   },
   {
-    q: 'Is cloud storage included?',
-    a: 'Yes, every account comes with generous cloud storage. Files are securely stored on AWS S3 infrastructure with automatic backups, versioning, and access controls. Storage scales with your institution\'s needs.',
+    q: 'How does online exam proctoring work?',
+    a: 'EduSphere features active tab-switch detection, countdown timers, and auto-save state recovery. Teachers can monitor completion statuses and receive proctor violation summaries.',
   },
 ]
 

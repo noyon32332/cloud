@@ -3,14 +3,14 @@ import { useRef } from 'react'
 import { Server, Database, Zap, Shield, Cloud, Lock, HardDrive, Cpu } from 'lucide-react'
 
 const technologies = [
-  { icon: Server, name: 'AWS EC2', desc: 'Elastic compute power' },
-  { icon: HardDrive, name: 'AWS S3', desc: 'Scalable object storage' },
-  { icon: Zap, name: 'AWS Lambda', desc: 'Serverless computing' },
-  { icon: Database, name: 'MongoDB Atlas', desc: 'NoSQL database' },
-  { icon: Cloud, name: 'Firebase', desc: 'Real-time backend' },
-  { icon: Lock, name: 'JWT Auth', desc: 'Secure authentication' },
-  { icon: Shield, name: 'Cloud Storage', desc: 'Encrypted file storage' },
-  { icon: Cpu, name: 'Cloud Security', desc: 'Enterprise-grade security' },
+  { icon: Server, name: 'Cloud Compute', desc: 'High-availability exam engine' },
+  { icon: Cpu, name: 'AI Engine', desc: 'Automated question generation' },
+  { icon: Zap, name: 'Real-Time Sync', desc: 'Instant proctoring updates' },
+  { icon: Database, name: 'MongoDB Atlas', desc: 'Encrypted question banks' },
+  { icon: Cloud, name: 'Firebase Auth', desc: 'Secure student login' },
+  { icon: Lock, name: 'JWT Auth', desc: 'Role-based access control' },
+  { icon: Shield, name: 'Anti-Cheat Guard', desc: 'Tab-switch proctoring' },
+  { icon: Cpu, name: 'Auto-Grading', desc: 'Instant evaluation pipeline' },
 ]
 
 export default function CloudTechnologySection() {

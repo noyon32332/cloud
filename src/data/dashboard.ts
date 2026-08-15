@@ -11,7 +11,6 @@ import {
   ListChecks,
   MessageSquare,
   Trophy,
-  UploadCloud,
   UserPlus,
 } from 'lucide-react'
 
@@ -36,16 +35,6 @@ export interface StatCardData {
 }
 
 export const statCards: StatCardData[] = [
-  {
-    id: 'assignments',
-    label: 'Assignments',
-    value: 12,
-    icon: FileText,
-    gradient: 'from-emerald-500 to-teal-600',
-    glow: 'shadow-emerald-500/40',
-    trend: { value: '+4', direction: 'up', note: 'this week' },
-    path: '/workspaces',
-  },
   {
     id: 'attendance',
     label: 'Attendance',
@@ -86,14 +75,14 @@ export const statCards: StatCardData[] = [
     trend: { value: '-3', direction: 'down', note: 'cleared today' },
   },
   {
-    id: 'files',
-    label: 'Files',
-    value: 18,
-    icon: FolderOpen,
-    gradient: 'from-teal-600 to-emerald-700',
-    glow: 'shadow-teal-600/40',
-    trend: { value: '+5', direction: 'up', note: 'uploaded this month' },
-    path: '/files',
+    id: 'exams',
+    label: 'Assigned Exams',
+    value: 8,
+    icon: CheckCircle2,
+    gradient: 'from-blue-600 to-indigo-600',
+    glow: 'shadow-blue-600/40',
+    trend: { value: '3 pending', direction: 'up', note: 'due this week' },
+    path: '/exams',
   },
 ]
 
@@ -106,12 +95,11 @@ export interface QuickActionData {
 }
 
 export const quickActions: QuickActionData[] = [
-  { id: 'join', label: 'Join Class', icon: UserPlus, gradient: 'from-green-500 to-emerald-500', path: '/workspaces' },
-  { id: 'assignments', label: 'View Assignments', icon: ListChecks, gradient: 'from-emerald-500 to-teal-500', path: '/workspaces' },
-  { id: 'upload', label: 'Upload Homework', icon: UploadCloud, gradient: 'from-green-600 to-emerald-600', path: '/files' },
-  { id: 'messages', label: 'Messages', icon: MessageSquare, gradient: 'from-emerald-600 to-teal-600', path: '/chat' },
-  { id: 'calendar', label: 'Calendar', icon: CalendarDays, gradient: 'from-green-500 to-teal-500' },
-  { id: 'files', label: 'My Files', icon: FolderOpen, gradient: 'from-teal-500 to-emerald-500', path: '/files' },
+  { id: 'exams', label: 'Take Exam', icon: CheckCircle2, gradient: 'from-blue-500 to-indigo-600', path: '/exams' },
+  { id: 'builder', label: 'Exam Builder', icon: BookOpen, gradient: 'from-sky-500 to-blue-600', path: '/exams/builder' },
+  { id: 'courses', label: 'My Courses', icon: ListChecks, gradient: 'from-indigo-500 to-purple-600', path: '/courses' },
+  { id: 'results', label: 'View Results', icon: Trophy, gradient: 'from-emerald-500 to-teal-600', path: '/results' },
+  { id: 'analytics', label: 'Analytics', icon: Award, gradient: 'from-amber-500 to-orange-600', path: '/analytics' },
 ]
 
 export interface ClassItem {
@@ -127,20 +115,6 @@ export const todayClasses: ClassItem[] = [
   { id: 'c1', course: 'Advanced Mathematics', time: '09:00 - 10:30', room: 'Room 204', status: 'ongoing', accent: 'from-green-500 to-emerald-500' },
   { id: 'c2', course: 'Physics Lab', time: '11:00 - 12:30', room: 'Lab 3', status: 'next', accent: 'from-emerald-500 to-teal-500' },
   { id: 'c3', course: 'Computer Science', time: '14:00 - 15:30', room: 'Room 110', status: 'upcoming', accent: 'from-teal-500 to-green-600' },
-]
-
-export interface AssignmentItem {
-  id: string
-  title: string
-  course: string
-  due: string
-  priority: 'high' | 'medium' | 'low'
-}
-
-export const upcomingAssignments: AssignmentItem[] = [
-  { id: 'a1', title: 'Data Structures Project', course: 'Computer Science', due: 'Due in 2 days', priority: 'high' },
-  { id: 'a2', title: 'Physics Lab Report', course: 'Physics', due: 'Due tomorrow', priority: 'high' },
-  { id: 'a3', title: 'Calculus Problem Set', course: 'Mathematics', due: 'Due in 5 days', priority: 'medium' },
 ]
 
 export interface NotificationItem {

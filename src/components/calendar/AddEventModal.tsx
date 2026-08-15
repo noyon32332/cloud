@@ -92,7 +92,7 @@ export default function AddEventModal({
       <div className="space-y-4">
         {/* Title */}
         <div>
-          <label className="mb-1.5 flex items-center gap-1.5 text-sm font-medium text-emerald-800 dark:text-emerald-200">
+          <label className="mb-1.5 flex items-center gap-1.5 text-sm font-medium text-[0F172A] dark:text-[475569]">
             <Tag className="h-3.5 w-3.5 text-green-600 dark:text-green-400" />
             Event Title
           </label>
@@ -101,8 +101,8 @@ export default function AddEventModal({
             onChange={(e) => { setTitle(e.target.value); setErrors((prev) => ({ ...prev, title: '' })) }}
             placeholder="e.g. Web Engineering Class"
             className={cn(
-              'h-11 w-full rounded-xl border bg-white/70 px-4 text-sm text-emerald-950 outline-none transition-all focus:ring-2 dark:bg-emerald-900/70 dark:text-emerald-50',
-              errors.title ? 'border-red-500/60 focus:border-red-500/60 focus:ring-red-500/20' : 'border-emerald-800 focus:border-green-500/60 focus:ring-green-500/20 dark:border-emerald-700'
+              'h-11 w-full rounded-xl border bg-white px-4 text-sm text-[0F172A] outline-none transition-all focus:ring-2 focus:ring-emerald-500/20',
+              errors.title ? 'border-red-500/60 focus:border-red-500/60 focus:ring-red-500/20' : 'border-emerald-500 focus:border-green-500/60 focus:ring-green-500/20 dark:border-slate-700'
             )}
           />
           {errors.title && <p className="mt-1 text-xs font-medium text-red-500">{errors.title}</p>}
@@ -110,7 +110,7 @@ export default function AddEventModal({
 
         {/* Event Type */}
         <div>
-          <label className="mb-1.5 flex items-center gap-1.5 text-sm font-medium text-emerald-800 dark:text-emerald-200">
+          <label className="mb-1.5 flex items-center gap-1.5 text-sm font-medium text-[0F172A] dark:text-[475569]">
             <FileText className="h-3.5 w-3.5 text-green-600 dark:text-green-400" />
             Event Type
           </label>
@@ -127,7 +127,7 @@ export default function AddEventModal({
 
         {/* Date */}
         <div>
-          <label className="mb-1.5 flex items-center gap-1.5 text-sm font-medium text-emerald-800 dark:text-emerald-200">
+          <label className="mb-1.5 flex items-center gap-1.5 text-sm font-medium text-[0F172A] dark:text-[475569]">
             <CalendarDays className="h-3.5 w-3.5 text-green-600 dark:text-green-400" />
             Date
           </label>
@@ -136,8 +136,8 @@ export default function AddEventModal({
             value={date}
             onChange={(e) => { setDate(e.target.value); setErrors((prev) => ({ ...prev, date: '' })) }}
             className={cn(
-              'h-11 w-full rounded-xl border bg-white/70 px-4 text-sm text-emerald-950 outline-none transition-all focus:ring-2 dark:bg-emerald-900/70 dark:text-emerald-50',
-              errors.date ? 'border-red-500/60 focus:border-red-500/60 focus:ring-red-500/20' : 'border-emerald-800 focus:border-green-500/60 focus:ring-green-500/20 dark:border-emerald-700'
+              'h-11 w-full rounded-xl border bg-white px-4 text-sm text-[0F172A] outline-none transition-all focus:ring-2 focus:ring-emerald-500/20',
+              errors.date ? 'border-red-500/60 focus:border-red-500/60 focus:ring-red-500/20' : 'border-emerald-500 focus:border-green-500/60 focus:ring-green-500/20 dark:border-slate-700'
             )}
           />
           {errors.date && <p className="mt-1 text-xs font-medium text-red-500">{errors.date}</p>}
@@ -146,7 +146,7 @@ export default function AddEventModal({
         {/* Time */}
         <div className="grid grid-cols-2 gap-3">
           <div>
-            <label className="mb-1.5 flex items-center gap-1.5 text-sm font-medium text-emerald-800 dark:text-emerald-200">
+            <label className="mb-1.5 flex items-center gap-1.5 text-sm font-medium text-[0F172A] dark:text-[475569]">
               <Clock className="h-3.5 w-3.5 text-green-600 dark:text-green-400" />
               Start Time
             </label>
@@ -155,14 +155,14 @@ export default function AddEventModal({
               value={startTime}
               onChange={(e) => { setStartTime(e.target.value); setErrors((prev) => ({ ...prev, startTime: '', endTime: '' })) }}
               className={cn(
-                'h-11 w-full rounded-xl border bg-white/70 px-4 text-sm text-emerald-950 outline-none transition-all focus:ring-2 dark:bg-emerald-900/70 dark:text-emerald-50',
-                errors.startTime ? 'border-red-500/60 focus:border-red-500/60 focus:ring-red-500/20' : 'border-emerald-800 focus:border-green-500/60 focus:ring-green-500/20 dark:border-emerald-700'
+                'h-11 w-full rounded-xl border bg-white px-4 text-sm text-[0F172A] outline-none transition-all focus:ring-2 focus:ring-emerald-500/20',
+                errors.startTime ? 'border-red-500/60 focus:border-red-500/60 focus:ring-red-500/20' : 'border-emerald-500 focus:border-green-500/60 focus:ring-green-500/20 dark:border-slate-700'
               )}
             />
             {errors.startTime && <p className="mt-1 text-xs font-medium text-red-500">{errors.startTime}</p>}
           </div>
           <div>
-            <label className="mb-1.5 flex items-center gap-1.5 text-sm font-medium text-emerald-800 dark:text-emerald-200">
+            <label className="mb-1.5 flex items-center gap-1.5 text-sm font-medium text-[0F172A] dark:text-[475569]">
               <Clock className="h-3.5 w-3.5 text-green-600 dark:text-green-400" />
               End Time
             </label>
@@ -171,8 +171,8 @@ export default function AddEventModal({
               value={endTime}
               onChange={(e) => { setEndTime(e.target.value); setErrors((prev) => ({ ...prev, startTime: '', endTime: '' })) }}
               className={cn(
-                'h-11 w-full rounded-xl border bg-white/70 px-4 text-sm text-emerald-950 outline-none transition-all focus:ring-2 dark:bg-emerald-900/70 dark:text-emerald-50',
-                errors.endTime ? 'border-red-500/60 focus:border-red-500/60 focus:ring-red-500/20' : 'border-emerald-800 focus:border-green-500/60 focus:ring-green-500/20 dark:border-emerald-700'
+                'h-11 w-full rounded-xl border bg-white px-4 text-sm text-[0F172A] outline-none transition-all focus:ring-2 focus:ring-emerald-500/20',
+                errors.endTime ? 'border-red-500/60 focus:border-red-500/60 focus:ring-red-500/20' : 'border-emerald-500 focus:border-green-500/60 focus:ring-green-500/20 dark:border-slate-700'
               )}
             />
             {errors.endTime && <p className="mt-1 text-xs font-medium text-red-500">{errors.endTime}</p>}
@@ -181,7 +181,7 @@ export default function AddEventModal({
 
         {/* Description */}
         <div>
-          <label className="mb-1.5 flex items-center gap-1.5 text-sm font-medium text-emerald-800 dark:text-emerald-200">
+          <label className="mb-1.5 flex items-center gap-1.5 text-sm font-medium text-[0F172A] dark:text-[475569]">
             <FileText className="h-3.5 w-3.5 text-green-600 dark:text-green-400" />
             Description
           </label>
@@ -190,7 +190,7 @@ export default function AddEventModal({
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Optional description..."
             rows={3}
-            className="w-full rounded-xl border border-emerald-800 bg-white/70 px-4 py-3 text-sm text-emerald-950 outline-none transition-all focus:border-green-500/60 focus:ring-2 focus:ring-green-500/20 dark:border-emerald-700 dark:bg-emerald-900/70 dark:text-emerald-50"
+            className="w-full rounded-xl border border-emerald-800 bg-white px-4 py-3 text-sm text-[0F172A] outline-none transition-all focus:border-green-500/60 focus:ring-2 focus:ring-green-500/20 dark:border-slate-700 dark:bg-slate-800/70"
           />
         </div>
 
@@ -199,14 +199,14 @@ export default function AddEventModal({
           <button
             type="button"
             onClick={onClose}
-            className="h-10 rounded-xl border border-emerald-800 px-5 text-sm font-semibold text-emerald-700 transition-colors hover:bg-emerald-50 dark:border-emerald-700 dark:text-emerald-300 dark:hover:bg-emerald-800"
+            className="h-10 rounded-xl border border-slate-700 px-5 text-sm font-semibold text-[0F172A] transition-colors hover:bg-slate-100 dark:border-slate-300 dark:text-slate-100 dark:hover:bg-slate-800"
           >
             Cancel
           </button>
           <button
             type="button"
             onClick={handleSubmit}
-            className="inline-flex h-10 items-center gap-2 rounded-xl bg-gradient-to-r from-green-600 to-emerald-600 px-5 text-sm font-semibold text-white shadow-lg shadow-green-500/25 transition-all hover:from-green-500 hover:to-emerald-500"
+            className="inline-flex h-10 items-center gap-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 px-5 text-sm font-semibold text-white shadow-lg shadow-emerald-500/25 transition-all hover:from-emerald-400 hover:to-teal-400"
           >
             <CalendarDays className="h-4 w-4" />
             {isEditing ? 'Save Changes' : 'Create Event'}

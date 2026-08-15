@@ -33,7 +33,7 @@ export default function DashboardCard({
       viewport={{ once: true, margin: '-40px' }}
       transition={{ duration: 0.5, delay, ease: 'easeOut' }}
       className={cn(
-        'relative overflow-hidden rounded-3xl border border-emerald-900/40 bg-white/70 backdrop-blur-xl shadow-lg shadow-emerald-200/40 dark:border-emerald-800/40 dark:bg-emerald-900/60 dark:shadow-emerald-950/40',
+        'relative overflow-hidden rounded-3xl border border-slate-200/70 bg-white backdrop-blur-xl shadow-lg shadow-slate-200/40 dark:border-slate-700/40 dark:bg-slate-900/60 dark:shadow-slate-950/40',
         className
       )}
     >

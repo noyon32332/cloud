@@ -18,10 +18,9 @@ export default function StatCard({ data, index }: StatCardProps) {
   const inner = (
     <div
       className={cn(
-        'group relative h-full overflow-hidden rounded-2xl border border-emerald-900/40 bg-white/70 p-5 shadow-lg backdrop-blur-xl transition-all duration-300',
-        'hover:-translate-y-1.5 hover:scale-[1.02] hover:shadow-2xl',
+        'group relative h-full overflow-hidden rounded-2xl border border-slate-200/70 bg-white p-5 shadow-lg transition-all duration-300',
+        'hover:-translate-y-1.5 hover:scale-[1.02] hover:shadow-xl',
         data.glow,
-        'dark:border-emerald-800/40 dark:bg-emerald-900/60 dark:shadow-emerald-950/50'
       )}
     >
       {/* Hover border glow */}

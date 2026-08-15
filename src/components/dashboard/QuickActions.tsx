@@ -11,7 +11,7 @@ export default function QuickActions() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-40px' }}
       transition={{ duration: 0.5, ease: 'easeOut' }}
-      className="relative overflow-hidden rounded-3xl border border-slate-200/60 bg-white/70 p-6 backdrop-blur-xl dark:border-slate-800 dark:bg-slate-900/60"
+      className="relative overflow-hidden rounded-3xl border border-slate-200/60 bg-white p-6 backdrop-blur-xl dark:border-slate-700/40 dark:bg-slate-900/60"
     >
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-blue-500/50 to-transparent" />
 
@@ -34,7 +34,7 @@ export default function QuickActions() {
               className={cn(
                 'group flex h-full w-full flex-col items-center justify-center gap-3 rounded-2xl border border-slate-200/70 bg-white/60 px-3 py-5 backdrop-blur-xl transition-all duration-300',
                 'hover:-translate-y-1 hover:border-blue-500/40 hover:shadow-xl hover:shadow-blue-500/10',
-                'dark:border-slate-800 dark:bg-slate-900/60 dark:hover:border-blue-500/40'
+                'dark:border-slate-800 dark:bg-slate-900/60 dark:hover:border-emerald-500/40'
               )}
             >
               <div

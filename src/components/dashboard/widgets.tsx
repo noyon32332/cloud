@@ -12,7 +12,6 @@ import {
 } from 'lucide-react'
 import {
   todayClasses,
-  upcomingAssignments,
   deadlines,
   notifications,
   calendarEvents,
@@ -63,7 +62,7 @@ export function TodayClasses() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.08 }}
-              className="group flex items-center gap-3 rounded-2xl border border-slate-200/70 bg-white/60 p-3 transition-all hover:border-blue-500/30 hover:shadow-lg hover:shadow-blue-500/5 dark:border-slate-800 dark:bg-slate-900/60"
+              className="group flex items-center gap-3 rounded-2xl border border-slate-200/70 bg-white p-3 transition-all hover:border-emerald-500/30 hover:shadow-lg hover:shadow-emerald-500/5 dark:border-slate-800"
             >
               <div className={cn('flex h-11 w-11 shrink-0 flex-col items-center justify-center rounded-xl bg-gradient-to-br text-white shadow-lg', item.accent)}>
                 <Clock className="h-4 w-4" />
@@ -91,42 +90,9 @@ export function TodayClasses() {
   )
 }
 
-export function UpcomingAssignments() {
-  return (
-    <DashboardCard title="Upcoming Assignments" subtitle="Deadlines you should watch" icon={Paperclip}>
-      <div className="space-y-3">
-        {upcomingAssignments.map((item, index) => (
-          <motion.div
-            key={item.id}
-            initial={{ opacity: 0, x: -16 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: index * 0.08 }}
-            className="group flex items-center gap-3 rounded-2xl border border-slate-200/70 bg-white/60 p-3 transition-all hover:border-violet-500/30 hover:shadow-lg hover:shadow-violet-500/5 dark:border-slate-800 dark:bg-slate-900/60"
-          >
-            <div className="flex h-11 w-11 shrink-0 flex-col items-center justify-center rounded-xl bg-gradient-to-br from-violet-500/20 to-purple-500/20 text-violet-500 dark:text-violet-400">
-              <Paperclip className="h-4 w-4" />
-            </div>
-            <div className="min-w-0 flex-1">
-              <p className="truncate text-sm font-semibold text-slate-900 dark:text-white">{item.title}</p>
-              <p className="text-xs text-slate-400 dark:text-slate-500">{item.course}</p>
-            </div>
-            <div className="flex shrink-0 flex-col items-end gap-1">
-              <span className={cn('rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase', priorityStyles[item.priority])}>
-                {item.priority}
-              </span>
-              <span className="text-[11px] font-medium tabular-nums text-slate-400 dark:text-slate-500">{item.due}</span>
-            </div>
-          </motion.div>
-        ))}
-      </div>
-    </DashboardCard>
-  )
-}
-
 const weekDays = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
 
-export function CalendarWidget() {
+export function CalendarWidget({ onClick }: { onClick?: () => void }) {
   const { days, firstDay, monthLabel, year, today } = useMemo(() => {
     const now = new Date()
     const year = now.getFullYear()
@@ -157,7 +123,7 @@ export function CalendarWidget() {
         </div>
       }
     >
-      <div className="grid grid-cols-7 gap-1 text-center">
+      <div className="grid grid-cols-7 gap-1 text-center" onClick={onClick}>
         {weekDays.map((day) => (
           <span key={day} className="py-1 text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
             {day}
@@ -242,8 +208,8 @@ export function RecentNotificationsWidget() {
             viewport={{ once: true }}
             transition={{ delay: index * 0.07 }}
             className={cn(
-              'flex items-start gap-3 rounded-xl p-2.5 transition-colors hover:bg-slate-50 dark:hover:bg-slate-800/50',
-              item.unread && 'bg-blue-500/[0.04]'
+              'flex items-start gap-3 rounded-xl p-2.5 transition-colors hover:bg-slate-50 dark:hover:bg-slate-700/50',
+              item.unread && 'bg-emerald-50/[0.04]'
             )}
           >
             <div className={cn('mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-white', item.accent)}>

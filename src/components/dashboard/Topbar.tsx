@@ -1,8 +1,20 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { ChevronDown, Menu, PanelLeftClose, PanelLeftOpen, Search, Settings, User } from 'lucide-react'
+import { Link, useLocation } from 'react-router-dom'
+import {
+  ArrowLeftRight,
+  BookOpen,
+  ChevronDown,
+  FileCheck,
+  LogOut,
+  Menu,
+  PanelLeftClose,
+  PanelLeftOpen,
+  Search,
+  Settings,
+} from 'lucide-react'
 import NotificationsMenu from '@/components/dashboard/NotificationsMenu'
+import { useAuth } from '@/contexts/AuthContext'
 import { cn } from '@/lib/utils'
 import type { User as AppUser } from '@/types'
 
@@ -14,14 +26,15 @@ interface TopbarProps {
   onLogout: () => void
 }
 
-const titles: Record<string, string> = {
-  '/dashboard': 'Dashboard',
-  '/workspaces': 'My Courses',
-  '/files': 'My Files',
-  '/chat': 'Messages',
-  '/profile': 'Profile',
-  '/settings': 'Settings',
-  '/calendar': 'Calendar',
+const pageHeaders: Record<string, { title: string; subtitle: string }> = {
+  '/dashboard': { title: 'Dashboard', subtitle: 'Overview & key metrics' },
+  '/courses': { title: 'Courses', subtitle: 'Enrolled subjects & syllabi' },
+  '/chapters': { title: 'Chapters', subtitle: 'Notes & formula guides' },
+  '/exams': { title: 'Exams', subtitle: 'Online assessments & tests' },
+  '/exams/builder': { title: 'Exam Builder', subtitle: 'Compose & publish tests' },
+  '/results': { title: 'Results', subtitle: 'Scores & detailed reviews' },
+  '/analytics': { title: 'Analytics', subtitle: 'Performance diagnostics' },
+  '/settings': { title: 'Settings', subtitle: 'Account & preferences' },
 }
 
 function getInitials(name: string) {
@@ -35,11 +48,16 @@ function getInitials(name: string) {
 
 export default function Topbar({ collapsed, onToggleCollapse, onOpenMobileMenu, user, onLogout }: TopbarProps) {
   const { pathname } = useLocation()
-  const navigate = useNavigate()
+  const { toggleRole } = useAuth()
   const [profileOpen, setProfileOpen] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
   const profileRef = useRef<HTMLDivElement>(null)
 
-  const title = titles[pathname] || 'Dashboard'
+  const isTeacher = user?.role === 'teacher'
+  const headerInfo = pageHeaders[pathname] || {
+    title: 'EduSphere',
+    subtitle: 'Academic portal',
+  }
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -52,110 +70,139 @@ export default function Topbar({ collapsed, onToggleCollapse, onOpenMobileMenu, 
   }, [])
 
   return (
-    <header className="sticky top-0 z-20 border-b border-emerald-900/60 bg-emerald-50/70 backdrop-blur-xl dark:border-emerald-900/40 dark:bg-emerald-950/70">
-      <div className="flex h-16 items-center gap-3 px-4 sm:px-6 lg:px-8">
-        {/* Mobile hamburger */}
-        <button
-          type="button"
-          onClick={onOpenMobileMenu}
-          aria-label="Open menu"
-          className="flex h-10 w-10 items-center justify-center rounded-xl border border-emerald-800 text-emerald-700 transition-colors hover:text-green-600 lg:hidden dark:border-emerald-700 dark:text-emerald-300"
-        >
-          <Menu className="h-5 w-5" />
-        </button>
+    <header className="sticky top-0 z-30 border-b border-slate-200/60 bg-white/95 backdrop-blur-xs">
+      <div className="flex h-14 items-center justify-between gap-4 px-4 sm:px-6">
+        {/* Left: Collapse toggle + Title */}
+        <div className="flex items-center gap-3">
+          <button
+            type="button"
+            onClick={onOpenMobileMenu}
+            aria-label="Open menu"
+            className="flex h-8 w-8 items-center justify-center rounded-lg border border-slate-200/80 text-slate-600 hover:bg-slate-50 lg:hidden"
+          >
+            <Menu className="h-4 w-4" />
+          </button>
 
-        {/* Collapse toggle (desktop) */}
-        <button
-          type="button"
-          onClick={onToggleCollapse}
-          aria-label="Toggle sidebar"
-          className="hidden h-10 w-10 items-center justify-center rounded-xl border border-emerald-800 text-emerald-700 transition-colors hover:text-green-600 lg:flex dark:border-emerald-700 dark:text-emerald-300"
-        >
-          {collapsed ? <PanelLeftOpen className="h-5 w-5" /> : <PanelLeftClose className="h-5 w-5" />}
-        </button>
+          <button
+            type="button"
+            onClick={onToggleCollapse}
+            aria-label="Toggle sidebar"
+            className="hidden h-8 w-8 items-center justify-center rounded-lg border border-slate-200/80 text-slate-500 hover:bg-slate-50 hover:text-slate-800 lg:flex"
+          >
+            {collapsed ? <PanelLeftOpen className="h-4 w-4" /> : <PanelLeftClose className="h-4 w-4" />}
+          </button>
 
-        {/* Title */}
-        <div className="min-w-0">
-          <h1 className="truncate text-lg font-bold tracking-tight text-emerald-950 dark:text-emerald-50">{title}</h1>
-          <p className="hidden text-xs text-emerald-600 sm:block dark:text-emerald-400">Student Dashboard</p>
+          <div className="min-w-0">
+            <h1 className="truncate text-sm font-bold text-slate-900">{headerInfo.title}</h1>
+            <p className="hidden text-[11px] text-slate-400 md:block truncate font-medium">{headerInfo.subtitle}</p>
+          </div>
         </div>
 
-        {/* Search */}
-        <div className="ml-auto hidden flex-1 justify-end md:flex">
-          <div className="relative w-full max-w-md">
-            <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-emerald-500 dark:text-emerald-400" />
+        {/* Center: Linear Style Minimal Search */}
+        <div className="hidden md:flex flex-1 max-w-sm mx-4">
+          <div className="relative w-full">
+            <Search className="pointer-events-none absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-slate-400" />
             <input
               type="search"
-              placeholder="Search courses, assignments..."
-              className="h-10 w-full rounded-xl border border-emerald-800 bg-white/70 pl-12 pr-4 text-sm text-emerald-950 outline-none transition-all placeholder:text-emerald-500 focus:border-green-500 focus:ring-2 focus:ring-green-500/20 dark:border-emerald-700 dark:bg-emerald-900/70 dark:text-emerald-50 dark:placeholder:text-emerald-400"
+              placeholder="Search (⌘K)..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="h-8 w-full rounded-lg border border-slate-200/70 bg-slate-50/70 pl-8 pr-3 text-xs text-slate-800 placeholder:text-slate-400 outline-none transition-all focus:border-blue-500 focus:bg-white"
             />
           </div>
         </div>
 
-        <div className="ml-auto flex items-center gap-2 md:ml-0">
+        {/* Right Actions: Role Toggle + Notifications + Profile */}
+        <div className="flex items-center gap-2.5">
+          {/* Quick Role Switcher */}
+          <button
+            type="button"
+            onClick={toggleRole}
+            title={`Switch to ${isTeacher ? 'Student' : 'Teacher'} perspective`}
+            className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200/80 bg-slate-50 px-2.5 py-1 text-xs font-semibold text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition-colors"
+          >
+            <ArrowLeftRight className="h-3 w-3 text-blue-600" />
+            <span className="hidden sm:inline text-[11px]">Role:</span>
+            <span className="capitalize text-[11px] font-bold text-blue-600">{user?.role || 'student'}</span>
+          </button>
+
+          {/* Notifications Dropdown */}
           <NotificationsMenu />
 
-          {/* Profile menu */}
+          {/* User Profile Dropdown */}
           <div ref={profileRef} className="relative">
             <button
               type="button"
               onClick={() => setProfileOpen((prev) => !prev)}
-              className="flex items-center gap-2 rounded-xl border border-emerald-800 bg-white/70 p-1.5 pr-2.5 transition-all hover:border-green-500/50 hover:shadow-lg hover:shadow-green-500/5 dark:border-emerald-700 dark:bg-emerald-900/70"
+              className="flex items-center gap-2 rounded-lg border border-slate-200/80 p-1 pr-2 hover:bg-slate-50 transition-colors"
             >
               {user?.avatar ? (
-                <img src={user.avatar} alt={user.fullName} className="h-7 w-7 rounded-lg object-cover" />
+                <img src={user.avatar} alt={user.fullName} className="h-6 w-6 rounded object-cover" />
               ) : (
-                <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-green-500 to-emerald-600 text-[10px] font-bold text-white">
-                  {getInitials(user?.fullName || 'S')}
+                <div className="flex h-6 w-6 items-center justify-center rounded bg-blue-600 text-[10px] font-bold text-white">
+                  {getInitials(user?.fullName || 'User')}
                 </div>
               )}
-              <span className="hidden max-w-[120px] truncate text-sm font-semibold text-emerald-950 sm:block dark:text-emerald-50">
-                {user?.fullName?.split(' ')[0] || 'Student'}
+              <span className="hidden max-w-[90px] truncate text-xs font-semibold text-slate-800 sm:block">
+                {user?.fullName?.split(' ')[0] || 'User'}
               </span>
-              <ChevronDown className={cn('h-4 w-4 text-emerald-500 transition-transform', profileOpen && 'rotate-180 dark:text-emerald-400')} />
+              <ChevronDown className={cn('h-3 w-3 text-slate-400 transition-transform', profileOpen && 'rotate-180')} />
             </button>
 
             <AnimatePresence>
               {profileOpen && (
                 <motion.div
-                  initial={{ opacity: 0, y: 8, scale: 0.96 }}
+                  initial={{ opacity: 0, y: 4, scale: 0.98 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: 8, scale: 0.96 }}
-                  transition={{ duration: 0.18, ease: 'easeOut' }}
-                  className="absolute right-0 z-50 mt-3 w-52 origin-top-right overflow-hidden rounded-2xl border border-emerald-800 bg-white/95 py-1.5 shadow-2xl shadow-emerald-950/20 backdrop-blur-xl dark:border-emerald-700 dark:bg-emerald-950/95"
+                  exit={{ opacity: 0, y: 4, scale: 0.98 }}
+                  transition={{ duration: 0.12 }}
+                  className="absolute right-0 mt-1.5 w-56 rounded-xl border border-slate-200 bg-white p-1.5 shadow-lg z-50 text-xs"
                 >
-                  <div className="border-b border-emerald-100 px-4 py-3 dark:border-emerald-800">
-                    <p className="truncate text-sm font-semibold text-emerald-950 dark:text-emerald-50">{user?.fullName || 'Student'}</p>
-                    <p className="truncate text-xs text-emerald-600 dark:text-emerald-400">{user?.email || ''}</p>
+                  <div className="border-b border-slate-100 p-2.5">
+                    <p className="font-semibold text-slate-900">{user?.fullName || 'EduSphere User'}</p>
+                    <p className="text-[11px] text-slate-400 truncate mt-0.5">{user?.email || 'user@edusphere.edu'}</p>
                   </div>
-                  <Link
-                    to="/profile"
-                    onClick={() => setProfileOpen(false)}
-                    className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-emerald-700 transition-colors hover:bg-emerald-50 dark:text-emerald-200 dark:hover:bg-emerald-800/60"
-                  >
-                    <User className="h-4 w-4 text-emerald-500" />
-                    My Profile
-                  </Link>
-                  <Link
-                    to="/settings"
-                    onClick={() => setProfileOpen(false)}
-                    className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-emerald-700 transition-colors hover:bg-emerald-50 dark:text-emerald-200 dark:hover:bg-emerald-800/60"
-                  >
-                    <Settings className="h-4 w-4 text-emerald-500" />
-                    Settings
-                  </Link>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setProfileOpen(false)
-                      navigate('/login')
-                      void onLogout()
-                    }}
-                    className="flex w-full items-center gap-2.5 px-4 py-2.5 text-left text-sm text-red-500 transition-colors hover:bg-red-500/10"
-                  >
-                    <span className="h-4 w-4 rounded-full border-2 border-red-500" />
-                    Logout
-                  </button>
+
+                  <div className="py-1 space-y-0.5 font-medium text-slate-700">
+                    <Link
+                      to="/dashboard"
+                      onClick={() => setProfileOpen(false)}
+                      className="flex items-center gap-2 rounded-lg px-2.5 py-1.5 hover:bg-slate-50 transition-colors"
+                    >
+                      <BookOpen className="h-3.5 w-3.5 text-slate-400" />
+                      Dashboard
+                    </Link>
+                    <Link
+                      to="/exams"
+                      onClick={() => setProfileOpen(false)}
+                      className="flex items-center gap-2 rounded-lg px-2.5 py-1.5 hover:bg-slate-50 transition-colors"
+                    >
+                      <FileCheck className="h-3.5 w-3.5 text-slate-400" />
+                      Exams
+                    </Link>
+                    <Link
+                      to="/settings"
+                      onClick={() => setProfileOpen(false)}
+                      className="flex items-center gap-2 rounded-lg px-2.5 py-1.5 hover:bg-slate-50 transition-colors"
+                    >
+                      <Settings className="h-3.5 w-3.5 text-slate-400" />
+                      Settings
+                    </Link>
+                  </div>
+
+                  <div className="border-t border-slate-100 pt-1">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setProfileOpen(false)
+                        onLogout()
+                      }}
+                      className="flex w-full items-center gap-2 rounded-lg px-2.5 py-1.5 font-medium text-red-600 hover:bg-red-50 transition-colors"
+                    >
+                      <LogOut className="h-3.5 w-3.5" />
+                      Sign Out
+                    </button>
+                  </div>
                 </motion.div>
               )}
             </AnimatePresence>

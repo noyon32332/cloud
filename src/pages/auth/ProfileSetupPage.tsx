@@ -1,18 +1,23 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Camera, Plus, X, Loader2, ArrowRight } from 'lucide-react'
+import { Plus, X, Loader2, ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent } from '@/components/ui/card'
 import { useAuth } from '@/contexts/AuthContext'
-import { authService } from '@/services/auth'
 
 const SUGGESTED_SKILLS = [
-  'JavaScript', 'TypeScript', 'React', 'Node.js', 'Python', 'Java',
-  'C++', 'Machine Learning', 'Data Science', 'Web Design', 'UI/UX',
-  'Project Management', 'Data Analysis', 'Cloud Computing', 'DevOps',
+  'Physics', 'Calculus', 'Thermodynamics', 'Data Structures', 'Chemistry',
+  'Algorithms', 'Vector Calculus', 'Organic Chemistry', 'Classical Mechanics',
+]
+
+const PRESET_AVATARS = [
+  'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
+  'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80',
+  'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80',
+  'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80',
 ]
 
 export default function ProfileSetupPage() {
@@ -21,18 +26,9 @@ export default function ProfileSetupPage() {
   const [bio, setBio] = useState(user?.bio || '')
   const [skills, setSkills] = useState<string[]>(user?.skills || [])
   const [skillInput, setSkillInput] = useState('')
-  const [avatarPreview, setAvatarPreview] = useState(user?.avatar || '')
+  const [avatarPreview, setAvatarPreview] = useState(user?.avatar || PRESET_AVATARS[0])
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [serverError, setServerError] = useState('')
-
-  const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (file) {
-      const reader = new FileReader()
-      reader.onloadend = () => setAvatarPreview(reader.result as string)
-      reader.readAsDataURL(file)
-    }
-  }
 
   const addSkill = (skill: string) => {
     const trimmed = skill.trim()
@@ -58,12 +54,17 @@ export default function ProfileSetupPage() {
     setServerError('')
     setIsSubmitting(true)
     try {
-      const updatedUser = await authService.updateProfile({ bio, skills, avatar: avatarPreview })
-      updateUser(updatedUser)
+      if (user) {
+        updateUser({
+          ...user,
+          avatar: avatarPreview,
+          bio,
+          skills,
+        })
+      }
       navigate('/dashboard')
-    } catch (err: unknown) {
-      const axiosErr = err as { response?: { data?: { message?: string } } }
-      setServerError(axiosErr.response?.data?.message || 'Failed to update profile. Please try again.')
+    } catch (err: any) {
+      setServerError(err.message || 'Failed to update profile')
     } finally {
       setIsSubmitting(false)
     }
@@ -79,7 +80,7 @@ export default function ProfileSetupPage() {
         <CardContent className="p-8">
           <div className="text-center mb-8">
             <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Set up your profile</h1>
-            <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">Add some details to personalize your account</p>
+            <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">Select an avatar and academic interests</p>
           </div>
 
           {serverError && (
@@ -89,24 +90,23 @@ export default function ProfileSetupPage() {
           )}
 
           <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Avatar Upload */}
+            {/* Avatar Selector */}
             <div className="flex flex-col items-center">
-              <div className="relative group">
-                <div className="w-24 h-24 rounded-2xl bg-slate-100 dark:bg-slate-700 overflow-hidden border-2 border-dashed border-slate-300 dark:border-slate-600 group-hover:border-blue-400 dark:group-hover:border-blue-500 transition-colors">
-                  {avatarPreview ? (
-                    <img src={avatarPreview} alt="Avatar" className="w-full h-full object-cover" />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center">
-                      <Camera className="w-8 h-8 text-slate-400" />
-                    </div>
-                  )}
-                </div>
-                <label className="absolute -bottom-2 -right-2 w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center cursor-pointer shadow-lg hover:bg-blue-500 transition-colors">
-                  <Camera className="w-4 h-4" />
-                  <input type="file" accept="image/*" className="hidden" onChange={handleAvatarChange} />
-                </label>
+              <p className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">Choose Profile Avatar</p>
+              <div className="flex items-center gap-3">
+                {PRESET_AVATARS.map((av, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => setAvatarPreview(av)}
+                    className={`h-12 w-12 rounded-2xl overflow-hidden border-2 transition-all ${
+                      avatarPreview === av ? 'border-blue-600 ring-2 ring-blue-600/30 scale-105' : 'border-slate-200 hover:border-slate-300'
+                    }`}
+                  >
+                    <img src={av} alt="Avatar option" className="h-full w-full object-cover" />
+                  </button>
+                ))}
               </div>
-              <p className="text-xs text-slate-400 mt-3">Upload a profile picture</p>
             </div>
 
             {/* Bio */}
@@ -116,7 +116,7 @@ export default function ProfileSetupPage() {
                 id="bio"
                 value={bio}
                 onChange={(e) => setBio(e.target.value)}
-                placeholder="Tell us a bit about yourself..."
+                placeholder="Tell us a bit about your academic studies..."
                 rows={3}
                 maxLength={200}
                 className="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none transition-all duration-200"
@@ -126,7 +126,7 @@ export default function ProfileSetupPage() {
 
             {/* Skills */}
             <div className="space-y-2">
-              <Label>Skills</Label>
+              <Label>Academic Interests & Skills</Label>
               <div className="flex flex-wrap gap-2 mb-3">
                 {skills.map((skill) => (
                   <span key={skill} className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-blue-50 dark:bg-blue-950/30 text-blue-700 dark:text-blue-300 text-xs font-medium border border-blue-200/50 dark:border-blue-800/50">
@@ -142,7 +142,7 @@ export default function ProfileSetupPage() {
                   value={skillInput}
                   onChange={(e) => setSkillInput(e.target.value)}
                   onKeyDown={handleSkillKeyDown}
-                  placeholder="Type a skill and press Enter"
+                  placeholder="Type a subject/skill and press Enter"
                   disabled={skills.length >= 10}
                 />
                 <Button
@@ -155,7 +155,7 @@ export default function ProfileSetupPage() {
                   <Plus className="w-4 h-4" />
                 </Button>
               </div>
-              <p className="text-xs text-slate-400">Add up to 10 skills</p>
+              <p className="text-xs text-slate-400">Add up to 10 subjects</p>
 
               {/* Suggested Skills */}
               <div className="flex flex-wrap gap-1.5 mt-2">

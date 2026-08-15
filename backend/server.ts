@@ -12,7 +12,6 @@ import courseRoutes from './routes/courseRoutes'
 import workspaceRoutes from './routes/workspaceRoutes'
 import taskRoutes from './routes/taskRoutes'
 import assignmentRoutes from './routes/assignmentRoutes'
-import fileRoutes from './routes/fileRoutes'
 import messageRoutes from './routes/messageRoutes'
 import notificationRoutes from './routes/notificationRoutes'
 import eventRoutes from './routes/eventRoutes'
@@ -41,7 +40,6 @@ app.use('/api/courses', courseRoutes)
 app.use('/api/workspaces', workspaceRoutes)
 app.use('/api/tasks', taskRoutes)
 app.use('/api/assignments', assignmentRoutes)
-app.use('/api/files', fileRoutes)
 app.use('/api/messages', messageRoutes)
 app.use('/api/notifications', notificationRoutes)
 app.use('/api/events', eventRoutes)

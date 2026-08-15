@@ -1,21 +1,21 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import {
-  Cloud, Users, CheckSquare, FileUp, MessageSquare,
-  Calendar, BarChart3, Bell, HardDrive, ShieldCheck,
+  BookOpen, Users, CheckSquare, FileCheck2, MessageSquare,
+  Calendar, BarChart3, Bell, Sparkles, ShieldCheck,
 } from 'lucide-react'
 
 const features = [
-  { icon: Cloud, title: 'Cloud File Sharing', desc: 'Share files seamlessly with your team through secure cloud storage.' },
-  { icon: Users, title: 'Study Groups', desc: 'Create and manage study groups for better collaborative learning.' },
-  { icon: CheckSquare, title: 'Task Management', desc: 'Organize tasks, set deadlines, and track progress efficiently.' },
-  { icon: FileUp, title: 'Assignment Submission', desc: 'Submit and grade assignments with a streamlined digital workflow.' },
-  { icon: MessageSquare, title: 'Real-time Chat', desc: 'Communicate instantly with your team through built-in messaging.' },
-  { icon: Calendar, title: 'Shared Calendar', desc: 'Coordinate schedules and never miss an important deadline.' },
-  { icon: BarChart3, title: 'Progress Dashboard', desc: 'Visualize your academic progress with detailed analytics.' },
-  { icon: Bell, title: 'Notifications', desc: 'Stay informed with smart, customizable notifications.' },
-  { icon: HardDrive, title: 'Cloud Storage', desc: 'Securely store all your academic files in the cloud.' },
-  { icon: ShieldCheck, title: 'Secure Authentication', desc: 'Enterprise-grade security to protect your data and privacy.' },
+  { icon: FileCheck2, title: 'Smart Exam Builder', desc: 'Compose multiple choice assessments with instant chapter content linking and difficulty tags.' },
+  { icon: Sparkles, title: 'AI Question Generator', desc: 'Automatically generate questions directly mapped to chapter formulas and principles.' },
+  { icon: CheckSquare, title: 'Distraction-Free Testing', desc: 'Proctored examination interface with anti-cheat detection and live countdown timers.' },
+  { icon: BarChart3, title: 'Academic Analytics', desc: 'Track class performance trends, question confusion rates, and subject mastery radars.' },
+  { icon: BookOpen, title: 'Chapter Concept Reader', desc: 'Browse curated course notes, key equations, and study guides in an interactive reader.' },
+  { icon: Users, title: 'Role-Based Access', desc: 'Seamlessly toggle between Teacher assessment management and Student testing portals.' },
+  { icon: MessageSquare, title: 'Real-time Discussion', desc: 'Engage with educators and peers through course discussion boards.' },
+  { icon: Calendar, title: 'Assessment Calendar', desc: 'Coordinate test schedules and never miss an upcoming exam deadline.' },
+  { icon: Bell, title: 'Automated Reminders', desc: 'Stay informed with proactive deadline alerts and score release notifications.' },
+  { icon: ShieldCheck, title: 'Enterprise Security', desc: 'High-integrity testing with encrypted answer logging and tamper-proof gradebooks.' },
 ]
 
 export default function FeaturesSection() {

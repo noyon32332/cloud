@@ -84,11 +84,11 @@ export default function CalendarGrid({
               transition={{ delay: Math.min(index * 0.006, 0.2), duration: 0.2 }}
               onClick={() => onSelectDate(day)}
               className={cn(
-                'group relative flex min-h-[80px] cursor-pointer flex-col border-b border-r border-emerald-900/20 p-1 transition-colors sm:min-h-[105px] sm:p-1.5 dark:border-emerald-800/20',
-                !inMonth && 'bg-emerald-50/50 dark:bg-emerald-950/20',
-                inMonth && !isCurrentDay && !selected && 'hover:bg-emerald-100/80 dark:hover:bg-emerald-800/40',
-                selected && !isCurrentDay && 'bg-green-50/60 dark:bg-green-950/20',
-                selected && 'ring-2 ring-inset ring-green-500/40'
+                'group relative flex min-h-[80px] cursor-pointer flex-col border-b border-r border-slate-200/20 p-1 transition-colors sm:min-h-[105px] sm:p-1.5 dark:border-slate-700/20',
+                !inMonth && 'bg-slate-50/50 dark:bg-slate-950/20',
+                inMonth && !isCurrentDay && !selected && 'hover:bg-slate-100 dark:hover:bg-slate-800',
+                selected && !isCurrentDay && 'bg-emerald-50/60 dark:bg-emerald-900/20',
+                selected && 'ring-2 ring-inset ring-emerald-500/40'
               )}
             >
               {/* Date number */}
@@ -96,9 +96,9 @@ export default function CalendarGrid({
                 <span
                   className={cn(
                     'flex h-6 w-6 items-center justify-center rounded-full text-xs font-bold sm:h-7 sm:w-7 sm:text-sm',
-                    isCurrentDay && 'bg-gradient-to-br from-green-600 to-emerald-600 text-white shadow-md shadow-green-500/30',
-                    !isCurrentDay && inMonth && 'text-emerald-800 dark:text-emerald-200',
-                    !isCurrentDay && !inMonth && 'text-emerald-300 dark:text-emerald-700'
+                    isCurrentDay && 'bg-gradient-to-br from-emerald-600 to-teal-600 text-white shadow-md shadow-emerald-500/30',
+!isCurrentDay && inMonth && 'text-slate-800 dark:text-slate-400',
+            !isCurrentDay && !inMonth && 'text-slate-500 dark:text-slate-400'
                   )}
                 >
                   {format(day, 'd')}

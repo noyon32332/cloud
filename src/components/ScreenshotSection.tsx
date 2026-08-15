@@ -1,5 +1,6 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef, useState } from 'react'
+import type { ReactNode } from 'react'
 import { LayoutDashboard, MessageSquare, Kanban, BarChart3 } from 'lucide-react'
 
 interface Tab {
@@ -50,9 +51,9 @@ const tabs: Tab[] = [
     render: () => (
       <div className="space-y-2.5 sm:space-y-3">
         {[
-          { from: 'Alex', text: 'Project deadline updated', time: '2m ago' },
-          { from: 'Sarah', text: 'Files uploaded to shared folder', time: '5m ago' },
-          { from: 'Mike', text: 'Great progress on the report!', time: '10m ago' },
+          { from: 'Alex', text: 'Midterm exam grades released', time: '2m ago' },
+          { from: 'Sarah', text: 'Completed Chapter 2 quiz with 95%', time: '5m ago' },
+          { from: 'Mike', text: 'New practice problems generated for Calculus', time: '10m ago' },
         ].map((msg) => (
           <div key={msg.from} className="flex items-start gap-2.5 sm:gap-3 p-2.5 sm:p-3 rounded-xl bg-white/60 dark:bg-slate-800/60 border border-cyan-200/50 dark:border-cyan-700/50">
             <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-sky-500/20 flex items-center justify-center text-sky-600 text-[10px] sm:text-xs font-bold shrink-0">

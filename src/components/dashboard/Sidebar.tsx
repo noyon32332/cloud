@@ -1,18 +1,15 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link, useLocation } from 'react-router-dom'
 import {
-  Bell,
+  BarChart3,
   BookOpen,
-  CalendarDays,
-  ClipboardList,
-  FileText,
-  FolderOpen,
+  CheckCircle2,
+  FileCheck2,
   GraduationCap,
+  Layers,
   LayoutDashboard,
   LogOut,
-  MessageSquare,
   Settings,
-  User,
 } from 'lucide-react'
 import { useState } from 'react'
 import { cn } from '@/lib/utils'
@@ -27,14 +24,13 @@ interface SidebarProps {
 }
 
 const navItems = [
-  { label: 'Dashboard', icon: LayoutDashboard, path: '/dashboard' },
-  { label: 'Assignments', icon: FileText, path: '/workspaces' },
-  { label: 'My Files', icon: FolderOpen, path: '/files' },
-  { label: 'Messages', icon: MessageSquare, path: '/chat' },
-  { label: 'Attendance', icon: Bell, path: '/dashboard' },
-  { label: 'Calendar', icon: CalendarDays, path: '/calendar' },
-  { label: 'Profile', icon: User, path: '/profile' },
-  { label: 'Settings', icon: Settings, path: '/settings' },
+  { label: 'Dashboard', icon: LayoutDashboard, path: '/dashboard', badge: '' },
+  { label: 'Courses', icon: BookOpen, path: '/courses', badge: '4' },
+  { label: 'Chapters', icon: Layers, path: '/chapters', badge: '' },
+  { label: 'Exams', icon: FileCheck2, path: '/exams', badge: '3' },
+  { label: 'Results', icon: CheckCircle2, path: '/results', badge: '' },
+  { label: 'Analytics', icon: BarChart3, path: '/analytics', badge: '' },
+  { label: 'Settings', icon: Settings, path: '/settings', badge: '' },
 ]
 
 function getInitials(name: string) {
@@ -48,50 +44,59 @@ function getInitials(name: string) {
 
 export default function Sidebar({ collapsed, mobileOpen, onClose, onLogout, user }: SidebarProps) {
   const { pathname } = useLocation()
-  const current = navItems.find((item) => item.path === pathname)
   const [hoveredItem, setHoveredItem] = useState<string | null>(null)
 
+  const isTeacher = user?.role === 'teacher'
+
   const renderContent = (layoutId: string) => (
-    <div className="flex h-full min-h-0 w-full flex-col">
-      {/* Brand */}
-      <div className={cn('flex h-16 shrink-0 items-center gap-2.5 border-b border-emerald-900/60 dark:border-emerald-900/40 px-4', collapsed && 'lg:justify-center lg:px-2')}>
-        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-green-500 to-emerald-600 shadow-lg shadow-green-500/30">
-          <GraduationCap className="h-5 w-5 text-white" />
+    <div className="flex h-full min-h-0 w-full flex-col bg-[#0F172A] border-r border-slate-800 text-slate-300">
+      {/* Brand Header */}
+      <div className={cn('flex h-14 shrink-0 items-center gap-3 border-b border-slate-800/80 px-5', collapsed && 'lg:justify-center lg:px-2')}>
+        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-blue-600 shadow-sm shadow-blue-500/20">
+          <GraduationCap className="h-4.5 w-4.5 text-white" />
         </div>
         <AnimatePresence mode="wait">
           {!collapsed && (
             <motion.div
-              initial={{ opacity: 0, x: -8 }}
+              initial={{ opacity: 0, x: -6 }}
               animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -8 }}
-              transition={{ duration: 0.2 }}
-              className="flex flex-col leading-tight"
+              exit={{ opacity: 0, x: -6 }}
+              transition={{ duration: 0.15 }}
+              className="flex flex-col leading-none"
             >
-              <span className="text-base font-bold text-emerald-950 dark:text-emerald-50">
-                Study<span className="bg-gradient-to-r from-green-600 to-emerald-500 bg-clip-text text-transparent">Sphere</span>
+              <span className="text-sm font-bold tracking-tight text-white">
+                Edu<span className="text-blue-400">Sphere</span>
               </span>
-              <span className="text-[10px] font-medium uppercase tracking-widest text-emerald-600 dark:text-emerald-400">Student Portal</span>
+              <span className="text-[9px] font-semibold uppercase tracking-widest text-slate-400 mt-1">
+                {isTeacher ? 'Teacher Portal' : 'Student Hub'}
+              </span>
             </motion.div>
           )}
         </AnimatePresence>
       </div>
 
-      {/* Nav - scrollable area */}
-      <nav className="sidebar-nav flex-1 min-h-0 overflow-y-auto p-3">
-        <AnimatePresence mode="wait">
-          {!collapsed && (
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="px-2 pb-1 pt-2 text-[10px] font-semibold uppercase tracking-widest text-emerald-600 dark:text-emerald-400"
-            >
-              Menu
-            </motion.p>
-          )}
-        </AnimatePresence>
+      {/* Workspace Role Selector */}
+      {!collapsed && (
+        <div className="mx-3.5 my-3 rounded-xl bg-slate-800/50 border border-slate-800 p-2.5 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <span className={cn('h-2 w-2 rounded-full', isTeacher ? 'bg-indigo-400' : 'bg-emerald-400')} />
+            <span className="text-xs font-medium text-slate-200 capitalize">{user?.role || 'student'} Mode</span>
+          </div>
+          <span className="text-[9px] font-bold px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700 uppercase tracking-wider">
+            {isTeacher ? 'Educator' : 'Learner'}
+          </span>
+        </div>
+      )}
+
+      {/* Minimal Navigation List */}
+      <nav className="sidebar-nav flex-1 min-h-0 overflow-y-auto px-3 py-2 space-y-1">
+        {!collapsed && (
+          <p className="px-3 pb-1.5 pt-2 text-[10px] font-bold uppercase tracking-widest text-slate-500">
+            Platform Menu
+          </p>
+        )}
         {navItems.map((item) => {
-          const isActive = current === item
+          const isActive = pathname === item.path || (item.path !== '/dashboard' && pathname.startsWith(item.path))
           return (
             <div
               key={item.label}
@@ -104,46 +109,60 @@ export default function Sidebar({ collapsed, mobileOpen, onClose, onLogout, user
                 onClick={onClose}
                 title={item.label}
                 className={cn(
-                  'group relative flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-200',
+                  'group relative flex items-center gap-3 rounded-xl px-3 py-2 text-xs font-medium transition-all duration-150',
                   collapsed && 'lg:justify-center lg:px-0',
                   isActive
-                    ? 'text-white'
-                    : 'text-emerald-800 hover:text-emerald-950 dark:text-emerald-200 dark:hover:text-white'
+                    ? 'text-white bg-blue-600 font-semibold shadow-xs'
+                    : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800/60'
                 )}
               >
                 {isActive && (
                   <motion.span
                     layoutId={layoutId}
-                    className="absolute inset-0 rounded-xl bg-gradient-to-r from-green-600 to-emerald-600 shadow-lg shadow-green-500/30"
-                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                    className="absolute inset-0 rounded-xl bg-blue-600"
+                    transition={{ type: 'spring', stiffness: 500, damping: 35 }}
                   />
                 )}
-                <item.icon className={cn('relative z-10 h-5 w-5 shrink-0', isActive ? 'text-white' : 'text-emerald-500 group-hover:text-green-600 dark:text-emerald-400 dark:group-hover:text-green-400', 'transition-colors')} />
+                <item.icon
+                  className={cn(
+                    'relative z-10 h-4 w-4 shrink-0 transition-colors',
+                    isActive ? 'text-white' : 'text-slate-400 group-hover:text-slate-200'
+                  )}
+                />
                 <AnimatePresence mode="wait">
                   {!collapsed && (
                     <motion.span
                       initial={{ opacity: 0, x: -4 }}
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: -4 }}
-                      transition={{ duration: 0.15 }}
+                      transition={{ duration: 0.12 }}
                       className="relative z-10 truncate"
                     >
                       {item.label}
                     </motion.span>
                   )}
                 </AnimatePresence>
-                {isActive && !collapsed && (
-                  <span className="relative z-10 ml-auto h-1.5 w-1.5 rounded-full bg-white/80" />
+
+                {item.badge && !collapsed && (
+                  <span
+                    className={cn(
+                      'relative z-10 ml-auto rounded-md px-1.5 py-0.5 text-[9px] font-bold',
+                      isActive ? 'bg-white/20 text-white' : 'bg-slate-800 text-slate-400 group-hover:text-slate-200'
+                    )}
+                  >
+                    {item.badge}
+                  </span>
                 )}
               </Link>
-              {/* Tooltip for collapsed state */}
+
+              {/* Tooltip for collapsed mode */}
               {collapsed && hoveredItem === item.label && (
                 <motion.div
                   initial={{ opacity: 0, x: -4, scale: 0.95 }}
                   animate={{ opacity: 1, x: 0, scale: 1 }}
                   exit={{ opacity: 0, x: -4, scale: 0.95 }}
-                  transition={{ duration: 0.15 }}
-                  className="absolute left-full top-1/2 z-[60] ml-3 -translate-y-1/2 whitespace-nowrap rounded-lg bg-emerald-900 px-3 py-1.5 text-xs font-medium text-white shadow-lg"
+                  transition={{ duration: 0.12 }}
+                  className="absolute left-full top-1/2 z-[60] ml-3 -translate-y-1/2 whitespace-nowrap rounded-lg bg-slate-800 px-3 py-1.5 text-xs font-medium text-white border border-slate-700 shadow-lg"
                 >
                   {item.label}
                 </motion.div>
@@ -153,97 +172,75 @@ export default function Sidebar({ collapsed, mobileOpen, onClose, onLogout, user
         })}
       </nav>
 
-      {/* Footer: user + logout - fixed at bottom */}
-      <div className="shrink-0 border-t border-emerald-900/60 p-3 dark:border-emerald-900/40">
-        <div className={cn('flex items-center gap-3 rounded-xl bg-emerald-100/80 p-2.5 dark:bg-emerald-900/40', collapsed && 'lg:justify-center lg:bg-transparent lg:p-0 dark:lg:bg-transparent')}>
+      {/* User Dark Profile Footer */}
+      <div className="shrink-0 border-t border-slate-800/80 p-3">
+        <div className={cn('flex items-center gap-3 rounded-xl p-2 transition-colors hover:bg-slate-800/50', collapsed && 'justify-center p-1')}>
           {user?.avatar ? (
-            <img src={user.avatar} alt={user.fullName} className="h-9 w-9 shrink-0 rounded-xl object-cover" />
+            <img src={user.avatar} alt={user.fullName} className="h-8 w-8 rounded-lg object-cover border border-slate-700" />
           ) : (
-            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-green-500 to-emerald-600 text-xs font-bold text-white shadow-lg shadow-green-500/30">
-              {getInitials(user?.fullName || 'S')}
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600 text-xs font-bold text-white shadow-xs">
+              {getInitials(user?.fullName || 'User')}
             </div>
           )}
-          <AnimatePresence mode="wait">
-            {!collapsed && (
-              <motion.div
-                initial={{ opacity: 0, x: -4 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -4 }}
-                transition={{ duration: 0.2 }}
-                className="min-w-0 flex-1 leading-tight"
-              >
-                <p className="truncate text-sm font-semibold text-emerald-950 dark:text-emerald-50">{user?.fullName || 'Student'}</p>
-                <p className="truncate text-xs capitalize text-emerald-600 dark:text-emerald-400">{user?.role}</p>
-              </motion.div>
-            )}
-          </AnimatePresence>
-          <button
-            type="button"
-            onClick={onLogout}
-            title="Logout"
-            className="ml-auto flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-emerald-500 transition-colors hover:bg-red-500/10 hover:text-red-500 lg:hidden dark:text-emerald-400"
-          >
-            <LogOut className="h-4 w-4" />
-          </button>
+
+          {!collapsed && (
+            <div className="min-w-0 flex-1">
+              <p className="truncate text-xs font-semibold text-slate-200">{user?.fullName || 'EduSphere User'}</p>
+              <p className="truncate text-[10px] text-slate-400 capitalize">{user?.role || 'student'}</p>
+            </div>
+          )}
+
+          {!collapsed && (
+            <button
+              type="button"
+              onClick={onLogout}
+              title="Logout"
+              aria-label="Logout"
+              className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-800 hover:text-red-400 transition-colors"
+            >
+              <LogOut className="h-3.5 w-3.5" />
+            </button>
+          )}
         </div>
-        <button
-          type="button"
-          onClick={onLogout}
-          className={cn('mt-2 hidden w-full items-center justify-center gap-2 rounded-xl border border-emerald-800 px-3 py-2 text-sm font-medium text-emerald-600 transition-all hover:border-red-500/40 hover:bg-red-500/10 hover:text-red-500 lg:flex dark:border-emerald-700 dark:text-emerald-400', collapsed && 'lg:justify-center lg:px-0')}
-        >
-          <LogOut className="h-4 w-4" />
-          <AnimatePresence mode="wait">
-            {!collapsed && (
-              <motion.span
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.15 }}
-              >
-                Logout
-              </motion.span>
-            )}
-          </AnimatePresence>
-        </button>
       </div>
     </div>
   )
 
   return (
     <>
-      {/* Mobile backdrop */}
+      {/* Desktop sidebar */}
+      <aside
+        className={cn(
+          'hidden shrink-0 border-r border-slate-800 transition-all duration-200 ease-in-out lg:block sticky top-0 h-screen',
+          collapsed ? 'w-16' : 'w-60'
+        )}
+      >
+        {renderContent('desktop-active-nav')}
+      </aside>
+
+      {/* Mobile drawer */}
       <AnimatePresence>
         {mobileOpen && (
-          <motion.div
-            key="backdrop"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={onClose}
-            className="fixed inset-0 z-40 bg-emerald-950/60 backdrop-blur-sm lg:hidden"
-          />
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={onClose}
+              className="fixed inset-0 z-40 bg-slate-950/60 backdrop-blur-xs lg:hidden"
+            />
+            <motion.div
+              initial={{ x: -260 }}
+              animate={{ x: 0 }}
+              exit={{ x: -260 }}
+              transition={{ type: 'spring', damping: 28, stiffness: 350 }}
+              className="fixed inset-y-0 left-0 z-50 w-64 lg:hidden shadow-2xl"
+            >
+              {renderContent('mobile-active-nav')}
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
-
-      {/* Sidebar: mobile drawer */}
-      <motion.aside
-        initial={{ x: '-100%' }}
-        animate={{ x: mobileOpen ? 0 : '-100%' }}
-        transition={{ type: 'spring', stiffness: 350, damping: 32 }}
-        className="fixed inset-y-0 left-0 z-50 flex h-screen w-64 flex-col border-r border-emerald-900/60 bg-emerald-50/90 backdrop-blur-xl dark:border-emerald-900/40 dark:bg-emerald-950/90 lg:hidden"
-      >
-        {renderContent('sidebar-active-mobile')}
-      </motion.aside>
-
-      {/* Sidebar: desktop - sticky flex item */}
-      <motion.aside
-        initial={false}
-        animate={{ width: collapsed ? 76 : 256 }}
-        transition={{ type: 'spring', stiffness: 300, damping: 32 }}
-        className="sticky left-0 top-0 z-30 hidden h-screen shrink-0 flex-col border-r border-emerald-900/60 bg-emerald-50/80 backdrop-blur-xl dark:border-emerald-900/40 dark:bg-emerald-950/80 lg:flex"
-      >
-        {renderContent('sidebar-active-desktop')}
-      </motion.aside>
     </>
   )
 }

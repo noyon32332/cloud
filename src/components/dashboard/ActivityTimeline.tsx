@@ -13,7 +13,7 @@ export default function ActivityTimeline() {
       iconClassName="text-blue-500 dark:text-blue-400 from-blue-500/20 to-indigo-500/20"
     >
       <div className="relative">
-        <div className="absolute bottom-2 left-[19px] top-2 w-px bg-gradient-to-b from-blue-500/40 via-slate-200 to-transparent dark:via-slate-700/60" />
+        <div className="absolute bottom-2 left-[19px] top-2 w-px bg-emerald-500/40" />
         <div className="space-y-5">
           {recentActivities.map((item, index) => (
             <motion.div
@@ -27,7 +27,7 @@ export default function ActivityTimeline() {
               <div className={cn('relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br text-white shadow-lg', item.accent)}>
                 <item.icon className="h-4 w-4" />
               </div>
-              <div className="min-w-0 flex-1 rounded-2xl border border-slate-200/70 bg-white/60 p-3.5 transition-all group-hover:border-blue-500/30 group-hover:shadow-lg group-hover:shadow-blue-500/5 dark:border-slate-800 dark:bg-slate-900/60">
+              <div className="min-w-0 flex-1 rounded-2xl border border-slate-200/70 bg-white p-3.5 transition-all group-hover:border-emerald-500/30 group-hover:shadow-lg group-hover:shadow-emerald-500/5">
                 <div className="flex items-center justify-between gap-2">
                   <p className="text-sm font-semibold text-slate-900 dark:text-white">{item.title}</p>
                   <span className="shrink-0 text-[11px] font-medium text-slate-400 dark:text-slate-500">{item.time}</span>
