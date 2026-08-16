@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   CheckCircle2,
@@ -55,13 +55,11 @@ export default function ResultsPage() {
     <DashboardLayout>
       <div className="space-y-7">
         {/* Header */}
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between rounded-xl border border-slate-200/60 bg-white p-5 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+        <section className="panel-card flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
           <div>
-            <span className="rounded-md bg-blue-50 px-2 py-0.5 text-[9px] font-bold text-blue-700 uppercase tracking-wider">
-              Evaluation & Insights
-            </span>
-            <h1 className="text-base sm:text-lg font-bold text-slate-900 mt-1">Results & Analytics</h1>
-            <p className="text-xs text-slate-500 font-medium">
+            <span className="eyebrow">Evaluation & Insights</span>
+            <h1 className="mt-1 text-lg font-bold text-slate-900">Results & Analytics</h1>
+            <p className="mt-0.5 text-xs font-medium text-slate-500">
               {isTeacher
                 ? 'Review class distributions, test failure points, and student rankings.'
                 : 'Analyze score trajectory, subject mastery, and review question solutions.'}
@@ -98,7 +96,7 @@ export default function ResultsPage() {
               Solution Reviews
             </button>
           </div>
-        </div>
+        </section>
 
         {/* SECTION 1: CHARTS ON TOP */}
         <section className="space-y-5">
@@ -109,7 +107,7 @@ export default function ResultsPage() {
 
           <div className="grid grid-cols-1 gap-5 lg:grid-cols-12">
             {/* Score History Trajectory Area Chart (7 cols) */}
-            <div className="lg:col-span-7 rounded-xl border border-slate-200/60 bg-white p-5 shadow-[0_1px_3px_rgba(0,0,0,0.04)] space-y-3">
+            <div className="lg:col-span-7 panel-card p-5 space-y-3">
               <div className="flex items-center justify-between border-b border-slate-100 pb-3">
                 <div>
                   <h3 className="text-sm font-bold text-slate-900">Score History Trajectory</h3>
@@ -142,7 +140,7 @@ export default function ResultsPage() {
             </div>
 
             {/* Subject Mastery Radar Chart (5 cols) */}
-            <div className="lg:col-span-5 rounded-xl border border-slate-200/60 bg-white p-5 shadow-[0_1px_3px_rgba(0,0,0,0.04)] flex flex-col justify-between space-y-3">
+            <div className="lg:col-span-5 panel-card p-5 flex flex-col justify-between space-y-3">
               <div>
                 <h3 className="text-sm font-bold text-slate-900">Subject Mastery Radar</h3>
                 <p className="text-[11px] text-slate-400">6 Core Domain Ratings</p>
@@ -181,7 +179,7 @@ export default function ResultsPage() {
 
           <div className="grid grid-cols-1 gap-5 lg:grid-cols-12">
             {/* Student Leaderboard Table (8 cols) */}
-            <div className="lg:col-span-8 rounded-xl border border-slate-200/60 bg-white p-5 shadow-[0_1px_3px_rgba(0,0,0,0.04)] space-y-3">
+            <div className="lg:col-span-8 panel-card p-5 space-y-3">
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between border-b border-slate-100 pb-3">
                 <div>
                   <h3 className="text-sm font-bold text-slate-900">Student Leaderboard</h3>
@@ -233,7 +231,7 @@ export default function ResultsPage() {
             </div>
 
             {/* Question Error Analysis (4 cols) */}
-            <div className="lg:col-span-4 rounded-xl border border-slate-200/60 bg-white p-5 shadow-[0_1px_3px_rgba(0,0,0,0.04)] space-y-3">
+            <div className="lg:col-span-4 panel-card p-5 space-y-3">
               <div className="border-b border-slate-100 pb-3">
                 <h3 className="text-sm font-bold text-slate-900">Error Analysis</h3>
                 <p className="text-[11px] text-slate-400">Frequent student mistake points</p>
@@ -264,7 +262,7 @@ export default function ResultsPage() {
         </section>
 
         {/* SECTION 3: EXAM SOLUTION REVIEWS GRID */}
-        <section className="rounded-xl border border-slate-200/60 bg-white p-5 shadow-[0_1px_3px_rgba(0,0,0,0.04)] space-y-5">
+        <section className="panel-card p-5 space-y-5">
           <div className="border-b border-slate-100 pb-3">
             <h3 className="text-sm font-bold text-slate-900">Graded Examination Solution Reviews</h3>
             <p className="text-[11px] text-slate-400">Click any exam to inspect solution rationales</p>
@@ -274,7 +272,7 @@ export default function ResultsPage() {
             {mockExams.map((exam) => (
               <div
                 key={exam.id}
-                className="flex flex-col justify-between rounded-xl border border-slate-200/60 bg-white p-4 shadow-[0_1px_3px_rgba(0,0,0,0.04)] hover:border-slate-300 transition-all space-y-3"
+                className="panel-card panel-card-interactive flex flex-col justify-between p-4 space-y-3"
               >
                 <div>
                   <div className="flex items-center justify-between gap-2 mb-2">

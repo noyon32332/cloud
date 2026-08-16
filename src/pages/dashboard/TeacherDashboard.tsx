@@ -1,4 +1,4 @@
-import { useNavigate, Link } from 'react-router-dom'
+﻿import { useNavigate, Link } from 'react-router-dom'
 import {
   BarChart3,
   CheckCircle2,
@@ -51,7 +51,7 @@ export default function TeacherDashboard() {
           <span className="text-xs text-slate-400 font-medium">Real-time sync</span>
         </div>
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          <div className="rounded-xl border border-slate-200/60 bg-white p-5 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+          <div className="panel-card p-5">
             <div className="flex items-center justify-between">
               <span className="text-xs font-semibold text-slate-500">Total Students</span>
               <div className="rounded-lg bg-slate-100 p-2 text-slate-600">
@@ -65,7 +65,7 @@ export default function TeacherDashboard() {
             </div>
           </div>
 
-          <div className="rounded-xl border border-slate-200/60 bg-white p-5 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+          <div className="panel-card p-5">
             <div className="flex items-center justify-between">
               <span className="text-xs font-semibold text-slate-500">Active Exams</span>
               <div className="rounded-lg bg-slate-100 p-2 text-slate-600">
@@ -78,7 +78,7 @@ export default function TeacherDashboard() {
             </div>
           </div>
 
-          <div className="rounded-xl border border-slate-200/60 bg-white p-5 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+          <div className="panel-card p-5">
             <div className="flex items-center justify-between">
               <span className="text-xs font-semibold text-slate-500">Published Exams</span>
               <div className="rounded-lg bg-slate-100 p-2 text-slate-600">
@@ -91,7 +91,7 @@ export default function TeacherDashboard() {
             </div>
           </div>
 
-          <div className="rounded-xl border border-slate-200/60 bg-white p-5 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+          <div className="panel-card p-5">
             <div className="flex items-center justify-between">
               <span className="text-xs font-semibold text-slate-500">Average Score</span>
               <div className="rounded-lg bg-slate-100 p-2 text-slate-600">
@@ -109,7 +109,7 @@ export default function TeacherDashboard() {
 
       {/* SECTION 2: Educator Quick Actions */}
       <section>
-        <div className="rounded-xl border border-slate-200/60 bg-white p-5 shadow-[0_1px_3px_rgba(0,0,0,0.04)] space-y-3">
+        <div className="panel-card p-5 space-y-3">
           <h3 className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Quick Actions</h3>
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
             <button
@@ -174,7 +174,7 @@ export default function TeacherDashboard() {
       {/* SECTION 3: Performance Charts */}
       <section className="grid grid-cols-1 gap-5 lg:grid-cols-12">
         {/* Exam Performance Bar Chart (8 cols) */}
-        <div className="lg:col-span-8 rounded-xl border border-slate-200/60 bg-white p-5 shadow-[0_1px_3px_rgba(0,0,0,0.04)] space-y-4">
+        <div className="lg:col-span-8 panel-card p-5 space-y-4">
           <div className="flex items-center justify-between border-b border-slate-100 pb-3">
             <div>
               <h3 className="text-sm font-bold text-slate-900">Exam Performance by Course</h3>
@@ -199,7 +199,7 @@ export default function TeacherDashboard() {
         </div>
 
         {/* Completion Status Gauge (4 cols) */}
-        <div className="lg:col-span-4 rounded-xl border border-slate-200/60 bg-white p-5 shadow-[0_1px_3px_rgba(0,0,0,0.04)] flex flex-col justify-between space-y-3">
+        <div className="lg:col-span-4 panel-card p-5 flex flex-col justify-between space-y-3">
           <div>
             <h3 className="text-sm font-bold text-slate-900">Submission Status</h3>
             <p className="text-[11px] text-slate-400">Completion rate breakdown</p>
@@ -240,7 +240,7 @@ export default function TeacherDashboard() {
       {/* SECTION 4: Latest Assessments & Top Performers */}
       <section className="grid grid-cols-1 gap-5 lg:grid-cols-2">
         {/* Recent Exams */}
-        <div className="rounded-xl border border-slate-200/60 bg-white p-5 shadow-[0_1px_3px_rgba(0,0,0,0.04)] space-y-3">
+        <div className="panel-card p-5 space-y-3">
           <div className="flex items-center justify-between border-b border-slate-100 pb-3">
             <h3 className="text-sm font-bold text-slate-900">Latest Published Assessments</h3>
             <Link to="/exams" className="text-xs font-semibold text-blue-600 hover:text-blue-700">
@@ -257,7 +257,7 @@ export default function TeacherDashboard() {
                   <span className="text-[9px] font-bold uppercase tracking-wider text-blue-600">{exam.subject}</span>
                   <p className="truncate text-xs font-bold text-slate-900">{exam.title}</p>
                   <p className="text-[11px] text-slate-400 mt-0.5">
-                    {exam.questions.length} Qs · {exam.durationMinutes}m · {exam.attemptsCount || 0} Submissions
+                    {exam.questions.length} Qs Â· {exam.durationMinutes}m Â· {exam.attemptsCount || 0} Submissions
                   </p>
                 </div>
                 <button
@@ -273,7 +273,7 @@ export default function TeacherDashboard() {
         </div>
 
         {/* Top Student Rankings */}
-        <div className="rounded-xl border border-slate-200/60 bg-white p-5 shadow-[0_1px_3px_rgba(0,0,0,0.04)] space-y-3">
+        <div className="panel-card p-5 space-y-3">
           <div className="flex items-center justify-between border-b border-slate-100 pb-3">
             <h3 className="text-sm font-bold text-slate-900">Top Performing Students</h3>
             <Link to="/analytics" className="text-xs font-semibold text-blue-600 hover:text-blue-700">

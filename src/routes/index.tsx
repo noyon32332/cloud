@@ -17,6 +17,11 @@ import ExamTakingPage from '@/pages/exams/ExamTakingPage'
 import ResultsPage from '@/pages/results/ResultsPage'
 import SettingsPage from '@/pages/settings/SettingsPage'
 import CalendarPage from '@/pages/dashboard/CalendarPage'
+import MyFilesPage from '@/pages/files/MyFilesPage'
+import ShareFilePage from '@/pages/files/ShareFilePage'
+import MyStorageFilePage from '@/pages/files/MyStorageFilePage'
+import ConnectedToTeacherPage from '@/pages/files/ConnectedToTeacherPage'
+import EduCorePage from '@/pages/files/EduCorePage'
 import { ProtectedRoute, PublicRoute } from '@/routes/ProtectedRoute'
 
 export const router = createBrowserRouter([
@@ -130,6 +135,46 @@ export const router = createBrowserRouter([
     ),
   },
   {
+    path: '/my-files',
+    element: (
+      <ProtectedRoute>
+        <MyFilesPage />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/share-file',
+    element: (
+      <ProtectedRoute>
+        <ShareFilePage />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/my-storage-file',
+    element: (
+      <ProtectedRoute>
+        <MyStorageFilePage />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/connected-to-teacher',
+    element: (
+      <ProtectedRoute>
+        <ConnectedToTeacherPage />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/educore-327',
+    element: (
+      <ProtectedRoute>
+        <EduCorePage />
+      </ProtectedRoute>
+    ),
+  },
+  {
     path: '/results',
     element: (
       <ProtectedRoute>
@@ -183,6 +228,6 @@ export const router = createBrowserRouter([
   },
   {
     path: '/files',
-    element: <Navigate to="/courses" replace />,
+    element: <Navigate to="/my-files" replace />,
   },
 ])

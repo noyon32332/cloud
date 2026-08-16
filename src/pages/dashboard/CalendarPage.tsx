@@ -30,9 +30,11 @@ export default function CalendarPage() {
     setSelectedDate(date)
   }, [])
 
+  const eventsByDate = useMemo(() => new Map<string, CalendarEvent[]>(), [])
+
   return (
     <DashboardLayout>
-      <div className="bg-[#3B4859] min-h-screen flex min-w-0 flex-1 flex-col gap-6 pt-12">
+      <div className="flex min-w-0 flex-1 flex-col gap-6">
         {/* Calendar Header */}
         <CalendarHeader
           currentDate={currentDate}
@@ -48,7 +50,7 @@ export default function CalendarPage() {
             currentDate={currentDate}
             today={today}
             selectedDate={selectedDate}
-            eventsByDate={new Map()}
+            eventsByDate={eventsByDate}
             onSelectDate={handleSelectDate}
             onSelectEvent={() => {}}
           />

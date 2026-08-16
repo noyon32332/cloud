@@ -1,15 +1,18 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link, useLocation } from 'react-router-dom'
 import {
-  BarChart3,
   BookOpen,
-  CheckCircle2,
+  Cpu,
+  Database,
   FileCheck2,
+  FolderKanban,
   GraduationCap,
   Layers,
   LayoutDashboard,
   LogOut,
   Settings,
+  Share2,
+  UserRoundCheck,
 } from 'lucide-react'
 import { useState } from 'react'
 import { cn } from '@/lib/utils'
@@ -28,8 +31,11 @@ const navItems = [
   { label: 'Courses', icon: BookOpen, path: '/courses', badge: '4' },
   { label: 'Chapters', icon: Layers, path: '/chapters', badge: '' },
   { label: 'Exams', icon: FileCheck2, path: '/exams', badge: '3' },
-  { label: 'Results', icon: CheckCircle2, path: '/results', badge: '' },
-  { label: 'Analytics', icon: BarChart3, path: '/analytics', badge: '' },
+  { label: 'My Files', icon: FolderKanban, path: '/my-files', badge: '' },
+  { label: 'Share File', icon: Share2, path: '/share-file', badge: '' },
+  { label: 'My Storage File', icon: Database, path: '/my-storage-file', badge: '' },
+  { label: 'Connected to the Teacher', icon: UserRoundCheck, path: '/connected-to-teacher', badge: '' },
+  { label: 'EduCore 327', icon: Cpu, path: '/educore-327', badge: '' },
   { label: 'Settings', icon: Settings, path: '/settings', badge: '' },
 ]
 
@@ -89,71 +95,102 @@ export default function Sidebar({ collapsed, mobileOpen, onClose, onLogout, user
       )}
 
       {/* Minimal Navigation List */}
-      <nav className="sidebar-nav flex-1 min-h-0 overflow-y-auto px-3 py-2 space-y-1">
+      <nav className="sidebar-nav flex flex-1 min-h-0 flex-col overflow-y-auto px-3 py-2 gap-y-1.5">
         {!collapsed && (
           <p className="px-3 pb-1.5 pt-2 text-[10px] font-bold uppercase tracking-widest text-slate-500">
             Platform Menu
           </p>
         )}
         {navItems.map((item) => {
-          const isActive = pathname === item.path || (item.path !== '/dashboard' && pathname.startsWith(item.path))
+          const isActive = item.path
+            ? pathname === item.path || (item.path !== '/dashboard' && pathname.startsWith(item.path))
+            : false
+          const itemClassName = cn(
+            'group relative flex flex-1 items-center gap-3 rounded-xl px-3 py-2 text-xs font-medium transition-all duration-150',
+            collapsed && 'lg:justify-center lg:px-0',
+            isActive
+              ? 'text-white bg-blue-600 font-semibold shadow-xs'
+              : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800/60'
+          )
           return (
             <div
               key={item.label}
-              className="relative"
+              className="relative flex grow"
               onMouseEnter={() => setHoveredItem(item.label)}
               onMouseLeave={() => setHoveredItem(null)}
             >
-              <Link
-                to={item.path}
-                onClick={onClose}
-                title={item.label}
-                className={cn(
-                  'group relative flex items-center gap-3 rounded-xl px-3 py-2 text-xs font-medium transition-all duration-150',
-                  collapsed && 'lg:justify-center lg:px-0',
-                  isActive
-                    ? 'text-white bg-blue-600 font-semibold shadow-xs'
-                    : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800/60'
-                )}
-              >
-                {isActive && (
-                  <motion.span
-                    layoutId={layoutId}
-                    className="absolute inset-0 rounded-xl bg-blue-600"
-                    transition={{ type: 'spring', stiffness: 500, damping: 35 }}
-                  />
-                )}
-                <item.icon
-                  className={cn(
-                    'relative z-10 h-4 w-4 shrink-0 transition-colors',
-                    isActive ? 'text-white' : 'text-slate-400 group-hover:text-slate-200'
-                  )}
-                />
-                <AnimatePresence mode="wait">
-                  {!collapsed && (
+              {item.path ? (
+                <Link
+                  to={item.path}
+                  onClick={onClose}
+                  title={item.label}
+                  className={itemClassName}
+                >
+                  {isActive && (
                     <motion.span
-                      initial={{ opacity: 0, x: -4 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -4 }}
-                      transition={{ duration: 0.12 }}
-                      className="relative z-10 truncate"
-                    >
-                      {item.label}
-                    </motion.span>
+                      layoutId={layoutId}
+                      className="absolute inset-0 rounded-xl bg-blue-600"
+                      transition={{ type: 'spring', stiffness: 500, damping: 35 }}
+                    />
                   )}
-                </AnimatePresence>
-
-                {item.badge && !collapsed && (
-                  <span
+                  <item.icon
                     className={cn(
-                      'relative z-10 ml-auto rounded-md px-1.5 py-0.5 text-[9px] font-bold',
-                      isActive ? 'bg-white/20 text-white' : 'bg-slate-800 text-slate-400 group-hover:text-slate-200'
+                      'relative z-10 h-4 w-4 shrink-0 transition-colors',
+                      isActive ? 'text-white' : 'text-slate-400 group-hover:text-slate-200'
                     )}
-                  >
-                    {item.badge}
-                  </span>
-                )}
-              </Link>
+                  />
+                  <AnimatePresence mode="wait">
+                    {!collapsed && (
+                      <motion.span
+                        initial={{ opacity: 0, x: -4 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -4 }}
+                        transition={{ duration: 0.12 }}
+                        className="relative z-10 truncate"
+                      >
+                        {item.label}
+                      </motion.span>
+                    )}
+                  </AnimatePresence>
+
+                  {item.badge && !collapsed && (
+                    <span
+                      className={cn(
+                        'relative z-10 ml-auto rounded-md px-1.5 py-0.5 text-[9px] font-bold',
+                        isActive ? 'bg-white/20 text-white' : 'bg-slate-800 text-slate-400 group-hover:text-slate-200'
+                      )}
+                    >
+                      {item.badge}
+                    </span>
+                  )}
+                </Link>
+              ) : (
+                <button
+                  type="button"
+                  title={item.label}
+                  className={itemClassName}
+                >
+                  <item.icon
+                    className={cn(
+                      'relative z-10 h-4 w-4 shrink-0 transition-colors',
+                      'text-slate-400 group-hover:text-slate-200'
+                    )}
+                  />
+                  <AnimatePresence mode="wait">
+                    {!collapsed && (
+                      <motion.span
+                        initial={{ opacity: 0, x: -4 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -4 }}
+                        transition={{ duration: 0.12 }}
+                        className="relative z-10 truncate"
+                      >
+                        {item.label}
+                      </motion.span>
+                    )}
+                  </AnimatePresence>
+                </button>
+              )}
 
               {/* Tooltip for collapsed mode */}
               {collapsed && hoveredItem === item.label && (
@@ -211,7 +248,7 @@ export default function Sidebar({ collapsed, mobileOpen, onClose, onLogout, user
       {/* Desktop sidebar */}
       <aside
         className={cn(
-          'hidden shrink-0 border-r border-slate-800 transition-all duration-200 ease-in-out lg:block sticky top-0 h-screen',
+          'hidden shrink-0 border-r border-slate-800 transition-all duration-200 ease-in-out lg:block sticky top-0 h-screen min-h-screen',
           collapsed ? 'w-16' : 'w-60'
         )}
       >

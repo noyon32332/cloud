@@ -13,7 +13,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
   }
 
   return (
-    <div className="flex min-h-screen bg-[#F8FAFC] text-[#0F172A]">
+    <div className="flex min-h-screen overflow-x-clip bg-[#F8FAFC] text-[#0F172A]">
       {/* Sidebar */}
       <Sidebar
         collapsed={collapsed}
@@ -24,7 +24,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
       />
 
       {/* Main content wrapper */}
-      <div className="relative flex min-w-0 flex-1 flex-col bg-[#F8FAFC]">
+      <div className="relative flex w-full min-w-0 flex-1 flex-col bg-[radial-gradient(ellipse_at_top_right,#EFF6FF_0%,rgba(248,250,252,0)_340px),#F8FAFC]">
         <Topbar
           collapsed={collapsed}
           onToggleCollapse={() => setCollapsed((prev) => !prev)}
@@ -32,7 +32,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
           user={user}
           onLogout={handleLogout}
         />
-        <main className="flex min-w-0 flex-1 flex-col p-4 sm:p-6 lg:p-8">
+        <main className="flex min-h-[calc(100vh_-_3.5rem)] w-full max-w-full min-w-0 flex-1 flex-col p-4 pb-6 sm:p-6 sm:pb-8 lg:p-8">
           {children}
         </main>
       </div>

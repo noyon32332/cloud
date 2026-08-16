@@ -6,6 +6,7 @@ import {
   BookOpen,
   ChevronDown,
   FileCheck,
+  FolderKanban,
   LogOut,
   Menu,
   PanelLeftClose,
@@ -32,6 +33,7 @@ const pageHeaders: Record<string, { title: string; subtitle: string }> = {
   '/chapters': { title: 'Chapters', subtitle: 'Notes & formula guides' },
   '/exams': { title: 'Exams', subtitle: 'Online assessments & tests' },
   '/exams/builder': { title: 'Exam Builder', subtitle: 'Compose & publish tests' },
+  '/my-files': { title: 'My Files', subtitle: 'Firebase Cloud Storage' },
   '/results': { title: 'Results', subtitle: 'Scores & detailed reviews' },
   '/analytics': { title: 'Analytics', subtitle: 'Performance diagnostics' },
   '/settings': { title: 'Settings', subtitle: 'Account & preferences' },
@@ -71,7 +73,7 @@ export default function Topbar({ collapsed, onToggleCollapse, onOpenMobileMenu, 
 
   return (
     <header className="sticky top-0 z-30 border-b border-slate-200/60 bg-white/95 backdrop-blur-xs">
-      <div className="flex h-14 items-center justify-between gap-4 px-4 sm:px-6">
+      <div className="flex h-14 items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
         {/* Left: Collapse toggle + Title */}
         <div className="flex items-center gap-3">
           <button
@@ -171,6 +173,14 @@ export default function Topbar({ collapsed, onToggleCollapse, onOpenMobileMenu, 
                     >
                       <BookOpen className="h-3.5 w-3.5 text-slate-400" />
                       Dashboard
+                    </Link>
+                    <Link
+                      to="/my-files"
+                      onClick={() => setProfileOpen(false)}
+                      className="flex items-center gap-2 rounded-lg px-2.5 py-1.5 hover:bg-slate-50 transition-colors"
+                    >
+                      <FolderKanban className="h-3.5 w-3.5 text-slate-400" />
+                      My Files
                     </Link>
                     <Link
                       to="/exams"

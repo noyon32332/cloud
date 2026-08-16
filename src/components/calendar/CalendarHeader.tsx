@@ -25,15 +25,14 @@ export default function CalendarHeader({
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ type: 'spring', stiffness: 260, damping: 20 }}
-          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-500 shadow-lg shadow-emerald-500/30"
+          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-blue-600 text-white shadow-sm shadow-blue-600/30"
         >
-          <CalendarDays className="h-5 w-5 text-white" />
+          <CalendarDays className="h-5 w-5" />
         </motion.div>
         <div>
-          <h1 className="text-2xl font-extrabold tracking-tight text-[0F172A]">
-            Calendar
-          </h1>
-          <p className="mt-0.5 text-sm text-[475569] dark:text-[475569]">
+          <span className="eyebrow">Academic Schedule</span>
+          <h1 className="text-xl font-bold tracking-tight text-slate-900">Calendar</h1>
+          <p className="mt-0.5 text-xs text-slate-500">
             Manage your classes, assignments, meetings and important deadlines.
           </p>
         </div>
@@ -42,27 +41,25 @@ export default function CalendarHeader({
       {/* Navigation & Actions */}
       <div className="flex flex-wrap items-center gap-2 sm:gap-3">
         {/* Month Navigation */}
-        <div className="flex items-center gap-1 rounded-2xl border border-slate-200/60 bg-white/70 p-1 backdrop-blur-xl dark:border-slate-700 dark:bg-slate-900/60">
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+        <div className="flex items-center gap-1 panel-card p-1">
+          <button
             type="button"
             onClick={onToday}
-            className="rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 px-3 py-1.5 text-xs font-semibold text-white shadow-md shadow-emerald-500/20 transition-all hover:from-emerald-500 hover:to-teal-500"
+            className="btn-primary rounded-md px-3 py-1.5"
           >
             Today
-          </motion.button>
+          </button>
           <motion.button
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             type="button"
             onClick={onPrevMonth}
             aria-label="Previous month"
-            className="flex h-7 w-7 items-center justify-center rounded-lg text-emerald-600 transition-colors hover:bg-emerald-100 hover:text-green-600 dark:text-emerald-400 dark:hover:bg-emerald-800 dark:hover:text-green-400"
+            className="flex h-7 w-7 items-center justify-center rounded-lg text-slate-400 transition-colors hover:bg-blue-50 hover:text-blue-600"
           >
             <ChevronLeft className="h-4 w-4" />
           </motion.button>
-          <span className="min-w-[110px] px-2 text-center text-sm font-semibold text-[0F172A]">
+          <span className="min-w-[110px] px-2 text-center text-sm font-semibold text-slate-800">
             {format(currentDate, 'MMMM yyyy')}
           </span>
           <motion.button
@@ -71,23 +68,21 @@ export default function CalendarHeader({
             type="button"
             onClick={onNextMonth}
             aria-label="Next month"
-            className="flex h-7 w-7 items-center justify-center rounded-lg text-emerald-600 transition-colors hover:bg-emerald-100 hover:text-green-600 dark:text-emerald-400 dark:hover:bg-emerald-800 dark:hover:text-green-400"
+            className="flex h-7 w-7 items-center justify-center rounded-lg text-slate-400 transition-colors hover:bg-blue-50 hover:text-blue-600"
           >
             <ChevronRight className="h-4 w-4" />
           </motion.button>
         </div>
 
         {/* Add Event Button */}
-        <motion.button
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
+        <button
           type="button"
           onClick={onAddEvent}
-          className="flex h-9 items-center gap-1.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 px-4 text-sm font-semibold text-white shadow-lg shadow-emerald-500/25 transition-all hover:from-emerald-500 hover:to-teal-500"
+          className="btn-primary h-9 px-4"
         >
           <Plus className="h-4 w-4" />
           <span className="hidden sm:inline">Add Event</span>
-        </motion.button>
+        </button>
       </div>
     </div>
   )
